@@ -1,6 +1,22 @@
-[gd_scene load_steps=6 format=3 uid="uid://cxgea6j70bhkn"]
+[gd_scene load_steps=8 format=3 uid="uid://cxgea6j70bhkn"]
 
+[ext_resource type="Script" uid="uid://cxf0hwtw5npld" path="res://Scences/characters/player.gd" id="1_kt7ow"]
 [ext_resource type="Texture2D" uid="uid://meibjmmqti5e" path="res://assets/art/characters/soccer-player.png" id="1_lobas"]
+
+[sub_resource type="Animation" id="Animation_yiwlq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
 
 [sub_resource type="Animation" id="Animation_kt7ow"]
 resource_name = "idle"
@@ -20,8 +36,11 @@ tracks/0/keys = {
 "values": [0, 1, 2, 3]
 }
 
-[sub_resource type="Animation" id="Animation_yiwlq"]
-length = 0.001
+[sub_resource type="Animation" id="Animation_lobas"]
+resource_name = "run"
+length = 0.6
+loop_mode = 1
+step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -29,16 +48,17 @@ tracks/0/path = NodePath("PlayerSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [0]
+"values": [6, 7, 8, 9, 10, 11]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_oya21"]
 _data = {
 &"RESET": SubResource("Animation_yiwlq"),
-&"idle": SubResource("Animation_kt7ow")
+&"idle": SubResource("Animation_kt7ow"),
+&"run": SubResource("Animation_lobas")
 }
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_lobas"]
@@ -46,15 +66,19 @@ radius = 4.0
 height = 18.0
 
 [node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_kt7ow")
+speed = 80.0
 
 [node name="PlayerSprite" type="Sprite2D" parent="."]
+unique_name_in_owner = true
 texture = ExtResource("1_lobas")
 centered = false
 offset = Vector2(-16, -32)
 hframes = 6
 vframes = 13
 
-[node name="idle" type="AnimationPlayer" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
 libraries = {
 &"": SubResource("AnimationLibrary_oya21")
 }
