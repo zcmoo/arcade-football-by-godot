@@ -11,10 +11,31 @@ config_version=5
 [application]
 
 config/name="街机足球"
+run/main_scene="uid://d1xcy22vbn0v1"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[display]
+
+window/size/viewport_width=280
+window/size/viewport_height=180
+window/size/sharp_corners=true
+window/size/window_width_override=1400
+window/size/window_height_override=900
+window/stretch/mode="viewport"
+window/stretch/scale_mode="integer"
+
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+textures/stretch/scale_mode="fractional"
+textures/per_pixel_transparency/allowed=false
+textures/stretch/mode="disabled"
+textures/energy_saving/keep_screen_on=true
+textures/size/window_height_override=0
+textures/size/window_width_override=0
+textures/size/viewport_height=648
+textures/size/viewport_width=1152
+textures/size/sharp_corners=false
