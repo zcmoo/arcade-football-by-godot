@@ -10,7 +10,6 @@ var current_state : PlayerState = null
 var state_factory := PlayerStateFactory.new()
 var heading := Vector2.RIGHT
 
-
 # 事件或时间轮询调用的特殊方法
 func _ready() -> void:
 	switch_state(State.MOVING)
