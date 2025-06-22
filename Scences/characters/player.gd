@@ -12,7 +12,7 @@ var heading := Vector2.RIGHT
 
 # 事件或时间轮询调用的特殊方法
 func _ready() -> void:
-	switch_state(State.MOVING)
+	switch_state(State.MOVING) # 初始化状态节点
 func _process(delta: float) -> void:
 	flip_sprite()
 	move_and_slide()
@@ -25,7 +25,7 @@ func switch_state(state: State) -> void:
 	current_state.name = "PlayerStateMachine" + str(state) # 可视化
 	call_deferred("add_child", current_state) # 将现在的状态子节点添加到父节点中
 
-# 普通方法
+# 用于按键输入控制角色的普通方法
 func set_movement_animation() -> void:
 	if velocity.length() > 0:
 		animation_player.play("run")
