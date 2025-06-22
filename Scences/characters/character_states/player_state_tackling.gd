@@ -8,4 +8,4 @@ func _enter_tree() -> void:
 @warning_ignore("unused_parameter")
 func _process(delta: float) -> void:
 	if Time.get_ticks_msec() - time_state_tackle > DURATION_TACKLIE:
-		state_transition_requested.emit(Player.State.MOVING)
+		state_transition_requested.emit(Player.State.RECOVERING)

@@ -1,12 +1,12 @@
 class_name Player
 extends CharacterBody2D
 enum ControlScheme {CPU, P1, P2}
-enum State {MOVING, TACKLING}
+enum State {MOVING, TACKLING, RECOVERING}
 @export var speed : float
 @export var control_scheme : ControlScheme
 @onready var animation_player : AnimationPlayer = %AnimationPlayer
 @onready var player_sprite : Sprite2D = %PlayerSprite
-var current_state: PlayerState = null 
+var current_state : PlayerState = null 
 var state_factory := PlayerStateFactory.new()
 var heading := Vector2.RIGHT
 func _ready() -> void:
