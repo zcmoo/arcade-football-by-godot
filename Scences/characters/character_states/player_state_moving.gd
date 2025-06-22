@@ -8,6 +8,8 @@ func _process(delta: float) -> void:
 		handle_human_movement()
 	player.set_movement_animation()
 	player.set_heading()
+	
+
 func handle_human_movement() -> void:
 	var direction := KeyUtils.get_input_vector(player.control_scheme)
 	player.velocity = direction * player.speed
