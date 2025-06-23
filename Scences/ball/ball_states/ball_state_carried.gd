@@ -5,6 +5,7 @@ const DRIBBLE_FREQUENCY = 10.0
 const DRIBBLE_INTENSITY = 3.0
 var dribble_time := 0.0
 
+
 func _enter_tree() -> void:
 	assert(carrier != null)
 func _process(delta: float) -> void:
@@ -21,4 +22,5 @@ func _process(delta: float) -> void:
 			animation_player.advance(0)
 	else:
 		animation_player.play("idle")
+	process_gravity(delta)
 	ball.position = carrier.position + Vector2(vx + carrier.heading.x * OFFSET_FORM_PLAYER.x, OFFSET_FORM_PLAYER.y)

@@ -6,6 +6,7 @@ var state_factory := BallStateFactory.new()
 var current_state : BallState = null
 var carrier : Player = null
 var height = 0.0
+var height_velocity = 0.0
 @onready var player_detection_area : Area2D = %PlayerDetectionArea
 @onready var animation_player : AnimationPlayer = %AnimationPlayer
 @onready var ball_sprite : Sprite2D = %BallSprite
@@ -30,3 +31,7 @@ func shoot(shot_velocity) -> void:
 	velocity = shot_velocity
 	carrier = null
 	switch_state(Ball.State.SHOT)
+
+
+	
+	
