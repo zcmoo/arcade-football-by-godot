@@ -6,7 +6,6 @@ var is_tackle_complete = false
 var time_finish_tackle := Time.get_ticks_msec()
 func _enter_tree() -> void:
 	animation_player.play("tackle")
-@warning_ignore("unused_parameter")
 func _process(delta: float) -> void:
 	if not is_tackle_complete:
 		player.velocity = player.velocity.move_toward(Vector2.ZERO, delta * GROUND_FRICTION)
@@ -14,4 +13,4 @@ func _process(delta: float) -> void:
 			is_tackle_complete = true
 			time_finish_tackle = Time.get_ticks_msec()
 	elif Time.get_ticks_msec() - time_finish_tackle > DURATION_PRIOR_RECOVERY:
-		state_transition_requested.emit(Player.State.RECOVERING)
+		transition_state(Player.State.RECOVERING)
