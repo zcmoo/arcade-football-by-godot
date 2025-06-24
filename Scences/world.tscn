@@ -1,12 +1,22 @@
-[gd_scene load_steps=6 format=3 uid="uid://d1xcy22vbn0v1"]
+[gd_scene load_steps=7 format=3 uid="uid://d1xcy22vbn0v1"]
 
 [ext_resource type="Texture2D" uid="uid://cwrem4d316qp6" path="res://assets/art/backgrounds/pitch-background.png" id="1_of7y3"]
+[ext_resource type="Script" uid="uid://eh05r7bh17c4" path="res://Scences/camera_2d.gd" id="1_qk82f"]
 [ext_resource type="Texture2D" uid="uid://vhccv168m2ih" path="res://assets/art/backgrounds/pitch-pattern.png" id="2_7vbm1"]
 [ext_resource type="Texture2D" uid="uid://dfwlcsyufm8my" path="res://assets/art/backgrounds/pitch-lines.png" id="3_y6ldt"]
 [ext_resource type="PackedScene" uid="uid://cxgea6j70bhkn" path="res://Scences/characters/player.tscn" id="4_nbkwn"]
 [ext_resource type="PackedScene" uid="uid://bx5bta716p7an" path="res://Scences/ball/ball.tscn" id="5_am073"]
 
 [node name="World" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("ball")]
+limit_left = 0
+limit_top = 0
+limit_right = 850
+limit_bottom = 360
+position_smoothing_enabled = true
+script = ExtResource("1_qk82f")
+ball = NodePath("../ActorsContainer/Ball")
 
 [node name="Backgrounds" type="Node2D" parent="."]
 
