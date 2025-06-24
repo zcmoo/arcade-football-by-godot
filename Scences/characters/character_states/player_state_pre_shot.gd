@@ -10,7 +10,8 @@ func _enter_tree() -> void:
 	animation_player.play("prep-kick")
 	player.velocity = Vector2.ZERO
 	time_start_shoot = Time.get_ticks_msec()
-
+	shot_directin = player.heading
+	
 func _process(delta: float) -> void:
 	shot_directin += KeyUtils.get_input_vector(player.control_scheme) * delta
 	if KeyUtils.is_action_just_released(player.control_scheme, KeyUtils.Action.SHOOT):

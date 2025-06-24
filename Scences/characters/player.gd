@@ -1,13 +1,14 @@
 class_name Player
 extends CharacterBody2D
 enum ControlScheme {CPU, P1, P2}
-enum State {MOVING, TACKLING, RECOVERING, PREPPRING_SHOOT, SHOOTING}
+enum State {MOVING, TACKLING, RECOVERING, PREPPRING_SHOOT, SHOOTING, PASSING}
 @export var power : float
 @export var speed : float
 @export var control_scheme : ControlScheme
 @export var ball : Ball
 @onready var animation_player : AnimationPlayer = %AnimationPlayer
 @onready var player_sprite : Sprite2D = %PlayerSprite
+@onready var teammate_detection_area : Area2D = %TeammateDetctionArea
 var current_state : PlayerState = null 
 var state_factory := PlayerStateFactory.new()
 var heading := Vector2.RIGHT
@@ -24,7 +25,7 @@ func switch_state(state: State, state_data: PlayerStateData = PlayerStateData.ne
 	if current_state != null:
 		current_state.queue_free() # 销毁掉上一个状态子节点
 	current_state = state_factory.get_fresh_state(state) # 实例化
-	current_state.setup(self, state_data, animation_player, ball) # 为当前子节点安装必要组件依赖
+	current_state.setup(self, state_data, animation_player, ball, teammate_detection_area) # 为当前子节点安装必要组件依赖
 	current_state.state_transition_requested.connect(switch_state.bind()) # 触发调用该方法的信号
 	current_state.name = "PlayerStateMachine" + str(state) # 可视化
 	call_deferred("add_child", current_state) # 将现在的状态子节点添加到父节点中
