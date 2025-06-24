@@ -10,7 +10,8 @@ var height_velocity = 0.0
 @onready var player_detection_area : Area2D = %PlayerDetectionArea
 @onready var animation_player : AnimationPlayer = %AnimationPlayer
 @onready var ball_sprite : Sprite2D = %BallSprite
-
+@export var friction_air : float
+@export var friction_ground : float
 
 func _ready() -> void:
 	switch_state(State.FREEFORM) # 初始化状态节点
@@ -32,6 +33,12 @@ func shoot(shot_velocity) -> void:
 	carrier = null
 	switch_state(Ball.State.SHOT)
 
-
+func pass_to(destination: Vector2) -> void:
+	var directon = position.direction_to(destination)
+	var distance = position.distance_to(destination)
+	var intensity = sqrt(2 * distance * friction_ground)
+	velocity = intensity * directon
+	carrier = null
+	switch_state(Ball.State.FREEFORM)
 	
 	
