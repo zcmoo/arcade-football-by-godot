@@ -30,7 +30,7 @@ centered = false
 y_sort_enabled = true
 
 [node name="Player" parent="ActorsContainer" node_paths=PackedStringArray("ball") instance=ExtResource("4_nbkwn")]
-position = Vector2(111, 111)
+position = Vector2(50, 324)
 ball = NodePath("../Ball")
 
 [node name="Player2" parent="ActorsContainer" node_paths=PackedStringArray("ball") instance=ExtResource("4_nbkwn")]
