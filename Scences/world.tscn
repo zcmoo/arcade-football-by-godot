@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://d1xcy22vbn0v1"]
+[gd_scene load_steps=8 format=3 uid="uid://d1xcy22vbn0v1"]
 
 [ext_resource type="Texture2D" uid="uid://cwrem4d316qp6" path="res://assets/art/backgrounds/pitch-background.png" id="1_of7y3"]
 [ext_resource type="Script" uid="uid://eh05r7bh17c4" path="res://Scences/camera_2d.gd" id="1_qk82f"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dfwlcsyufm8my" path="res://assets/art/backgrounds/pitch-lines.png" id="3_y6ldt"]
 [ext_resource type="PackedScene" uid="uid://cxgea6j70bhkn" path="res://Scences/characters/player.tscn" id="4_nbkwn"]
 [ext_resource type="PackedScene" uid="uid://bx5bta716p7an" path="res://Scences/ball/ball.tscn" id="5_am073"]
+[ext_resource type="PackedScene" uid="uid://ckmlk3bqpig3x" path="res://Scences/goal/goal.tscn" id="5_jta3l"]
 
 [node name="World" type="Node2D"]
 
@@ -38,6 +39,16 @@ centered = false
 
 [node name="ActorsContainer" type="Node2D" parent="."]
 y_sort_enabled = true
+
+[node name="PitchObjects" type="Node2D" parent="ActorsContainer"]
+y_sort_enabled = true
+
+[node name="GoalHome" parent="ActorsContainer/PitchObjects" instance=ExtResource("5_jta3l")]
+position = Vector2(32, 220)
+
+[node name="GoalAway" parent="ActorsContainer/PitchObjects" instance=ExtResource("5_jta3l")]
+position = Vector2(818, 220)
+scale = Vector2(-1, 1)
 
 [node name="Player" parent="ActorsContainer" node_paths=PackedStringArray("ball") instance=ExtResource("4_nbkwn")]
 position = Vector2(98, 84)

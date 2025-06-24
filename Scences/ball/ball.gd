@@ -7,11 +7,13 @@ var current_state : BallState = null
 var carrier : Player = null
 var height = 0.0
 var height_velocity = 0.0
+const BOUNCINESS = 0.8
 @onready var player_detection_area : Area2D = %PlayerDetectionArea
 @onready var animation_player : AnimationPlayer = %AnimationPlayer
 @onready var ball_sprite : Sprite2D = %BallSprite
 @export var friction_air : float
 @export var friction_ground : float
+
 
 func _ready() -> void:
 	switch_state(State.FREEFORM) # 初始化状态节点
@@ -40,5 +42,6 @@ func pass_to(destination: Vector2) -> void:
 	velocity = intensity * directon
 	carrier = null
 	switch_state(Ball.State.FREEFORM)
-	
-	
+
+func stop() -> void:
+	velocity = Vector2.ZERO
