@@ -8,13 +8,14 @@ var animation_player : AnimationPlayer = null
 var sprite : Sprite2D = null
 const GRAVITY = 10
 
-
+# 各个状态的依赖项
 func setup(context_ball:Ball, context_player_dection_area: Area2D, context_carrier: Player, context_animation_player: AnimationPlayer, context_sprite: Sprite2D) -> void:
 	ball = context_ball
 	player_dection_area = context_player_dection_area
 	carrier = context_carrier
 	animation_player = context_animation_player
 	sprite = context_sprite
+	
 
 func set_ball_animation_from_velocity() -> void:
 	if ball.velocity == Vector2.ZERO:
@@ -41,3 +42,6 @@ func move_and_bounce(delta: float) -> void:
 	if collision != null:
 		ball.velocity = ball.velocity.bounce(collision.get_normal()) * ball.BOUNCINESS
 		ball.switch_state(Ball.State.FREEFORM)
+
+func can_air_interact() -> bool:
+	return false

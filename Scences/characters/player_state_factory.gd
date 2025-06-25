@@ -9,7 +9,10 @@ func _init() -> void:
 		Player.State.TACKLING : PlayerStateTackling,
 		Player.State.PREPPRING_SHOOT : PlayerStatePreshot,
 		Player.State.SHOOTING : PlayerStateShot,
-		Player.State.PASSING : PlayStatePassing
+		Player.State.PASSING : PlayStatePassing,
+		Player.State.BICYCLE_KICK : PlayerStateBicycleKick,
+		Player.State.HEADER : PlayerStateHeader,
+		Player.State.VOLLEY_KICK : PlayerStateVolleyKick
 	}
 
 func get_fresh_state(state: Player.State) -> PlayerState:

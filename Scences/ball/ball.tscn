@@ -73,6 +73,8 @@ sync_to_physics = false
 script = ExtResource("2_77oc3")
 friction_air = 35.0
 friction_ground = 250.0
+air_connect_min_height = 10.0
+air_connect_max_height = 30.0
 
 [node name="BallSprite" type="Sprite2D" parent="."]
 unique_name_in_owner = true
