@@ -6,12 +6,15 @@ const CONTROL_SCHEME_MAP : Dictionary = {
 	ControlScheme.P2 : preload("res://assets/art/props/2p.png")
 }
 const GRAVITY = 8.0
+const BALL_CONTROL_HEIGHT_MAX = 10
 enum ControlScheme {CPU, P1, P2}
-enum State {MOVING, TACKLING, RECOVERING, PREPPRING_SHOOT, SHOOTING, PASSING, HEADER, VOLLEY_KICK, BICYCLE_KICK}
+enum State {MOVING, TACKLING, RECOVERING, PREPPRING_SHOOT, SHOOTING, PASSING, HEADER, VOLLEY_KICK, BICYCLE_KICK, CHEST_CONTROL}
 @export var power : float
 @export var speed : float
 @export var control_scheme : ControlScheme
 @export var ball : Ball
+@export var own_goal : Goal
+@export var target_goal : Goal
 @onready var animation_player : AnimationPlayer = %AnimationPlayer
 @onready var player_sprite : Sprite2D = %PlayerSprite
 @onready var teammate_detection_area : Area2D = %TeammateDetctionArea
@@ -38,7 +41,7 @@ func switch_state(state: State, state_data: PlayerStateData = PlayerStateData.ne
 	if current_state != null:
 		current_state.queue_free() # 销毁掉上一个状态子节点
 	current_state = state_factory.get_fresh_state(state) # 实例化
-	current_state.setup(self, state_data, animation_player, ball, teammate_detection_area, ball_dection_area) # 为当前子节点安装必要组件依赖
+	current_state.setup(self, state_data, animation_player, ball, teammate_detection_area, ball_dection_area, own_goal, target_goal) # 为当前子节点安装必要组件依赖
 	current_state.state_transition_requested.connect(switch_state.bind()) # 触发调用该方法的信号
 	current_state.name = "PlayerStateMachine" + str(state) # 可视化
 	call_deferred("add_child", current_state) # 将现在的状态子节点添加到父节点中
@@ -81,3 +84,7 @@ func process_gravity(delta: float) -> void:
 		if height < 0:
 			height = 0
 	player_sprite.position = Vector2.UP * height
+
+func control_ball() -> void:
+	if ball.height > BALL_CONTROL_HEIGHT_MAX:
+		switch_state(Player.State.CHEST_CONTROL)

@@ -8,6 +8,7 @@ var animation_player : AnimationPlayer = null
 var sprite : Sprite2D = null
 const GRAVITY = 10
 
+
 # 各个状态的依赖项
 func setup(context_ball:Ball, context_player_dection_area: Area2D, context_carrier: Player, context_animation_player: AnimationPlayer, context_sprite: Sprite2D) -> void:
 	ball = context_ball
@@ -16,7 +17,6 @@ func setup(context_ball:Ball, context_player_dection_area: Area2D, context_carri
 	animation_player = context_animation_player
 	sprite = context_sprite
 	
-
 func set_ball_animation_from_velocity() -> void:
 	if ball.velocity == Vector2.ZERO:
 		animation_player.play("idle")
