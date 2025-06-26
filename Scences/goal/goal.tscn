@@ -32,6 +32,7 @@ collision_mask = 4
 monitorable = false
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BackNetArea"]
+position = Vector2(2, 0)
 polygon = PackedVector2Array(-20, -2, -12, -65, -10, -65, -18, -2)
 
 [node name="BottomFrame" type="StaticBody2D" parent="."]
@@ -52,10 +53,10 @@ shape = SubResource("RectangleShape2D_a1nvv")
 unique_name_in_owner = true
 
 [node name="TopTarget" type="Node2D" parent="Targets"]
-position = Vector2(22, -56)
+position = Vector2(22, -49)
 
 [node name="MiddleTarget" type="Node2D" parent="Targets"]
 position = Vector2(22, -35)
 
 [node name="BottomTarget" type="Node2D" parent="Targets"]
-position = Vector2(22, -10)
+position = Vector2(22, -19)

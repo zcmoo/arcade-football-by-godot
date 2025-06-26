@@ -9,6 +9,8 @@ const GRAVITY = 8.0
 const BALL_CONTROL_HEIGHT_MAX = 10
 enum ControlScheme {CPU, P1, P2}
 enum State {MOVING, TACKLING, RECOVERING, PREPPRING_SHOOT, SHOOTING, PASSING, HEADER, VOLLEY_KICK, BICYCLE_KICK, CHEST_CONTROL}
+enum Role {GOALE, DEFNSE, MIDFIELD, OFFNSE}
+enum SkinColor {LIGHT, MEDIUM, DARK}
 @export var power : float
 @export var speed : float
 @export var control_scheme : ControlScheme
@@ -25,6 +27,9 @@ var state_factory := PlayerStateFactory.new()
 var heading := Vector2.RIGHT
 var height = 0.0
 var height_velocity = 0.0
+var fullname = ""
+var role = Player.Role.MIDFIELD
+var skin_color = Player.SkinColor.MEDIUM
 
 
 func _ready() -> void:
@@ -65,7 +70,9 @@ func flip_sprite() -> void:
 		player_sprite.flip_h = true
 
 func has_ball() -> bool:
-	return ball.carrier == self
+	if ball:
+		return ball.carrier == self
+	return false
 
 func on_annimation_complete() -> void:
 	if current_state != null:
@@ -88,3 +95,15 @@ func process_gravity(delta: float) -> void:
 func control_ball() -> void:
 	if ball.height > BALL_CONTROL_HEIGHT_MAX:
 		switch_state(Player.State.CHEST_CONTROL)
+
+func initialize(context_player_position: Vector2, context_ball: Ball, context_own_goal: Goal, context_target_goal: Goal, context_player_data: PlayerResource) -> void:
+	position = context_player_position
+	ball = context_ball
+	own_goal = context_own_goal
+	target_goal = context_target_goal
+	speed = context_player_data.speed
+	power = context_player_data.power
+	role = context_player_data.role
+	skin_color = context_player_data.skin_color
+	fullname = context_player_data.full_name
+	heading = Vector2.LEFT if target_goal.position.x < position.x else Vector2.RIGHT

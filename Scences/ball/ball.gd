@@ -16,12 +16,15 @@ const DiSTANCE_HIGHT_PASS = 130
 @export var friction_ground : float
 
 
-
 func _ready() -> void:
 	switch_state(State.FREEFORM) # 初始化状态节点
 
 func _process(delta: float) -> void:
 	ball_sprite.position = Vector2.UP * height
+	if self.position.x > 850:
+		self.position = Vector2(802, 174)
+	elif self.position.x < 0:
+		self.position = Vector2(48, 174)
 
 func switch_state(state: Ball.State) -> void:
 	if current_state != null:

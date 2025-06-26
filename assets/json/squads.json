@@ -4,14 +4,14 @@
 		"name": "H. LLORIS",
 		"skin": 0,
 		"role": 0,
-		"speed": 75,
-		"power": 100,
+		"speed": 300,
+		"power": 300,
 	}, {
 		"name": "J. KOUNDE",
 		"skin": 2,
 		"role": 1,
-		"speed": 75,
-		"power": 165,
+		"speed": 300,
+		"power": 300,
 	}, {
 		"name": "I. KONATE",
 		"skin": 2,
