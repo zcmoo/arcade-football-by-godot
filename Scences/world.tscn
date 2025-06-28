@@ -17,6 +17,7 @@ size = Vector2(800, 12)
 [node name="World" type="Node2D"]
 
 [node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("ball")]
+unique_name_in_owner = true
 limit_left = 0
 limit_top = 0
 limit_right = 850

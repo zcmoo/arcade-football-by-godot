@@ -18,6 +18,7 @@ const ACTIONS_MAP : Dictionary = {
 		Action.PASS: "p2_pass", 
 	}
 }
+
 func get_input_vector(scheme: Player.ControlScheme) -> Vector2:
 	var map:Dictionary = ACTIONS_MAP[scheme]
 	return	Input.get_vector(map[Action.LEFT], map[Action.RIGHT], map[Action.UP], map[Action.DOWN])
