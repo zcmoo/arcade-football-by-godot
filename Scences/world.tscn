@@ -50,7 +50,7 @@ script = ExtResource("5_npiv4")
 ball = NodePath("Ball")
 goal_home = NodePath("PitchObjects/GoalHome")
 goal_away = NodePath("PitchObjects/GoalAway")
-team_home = "FRANCE"
+team_home = "CHINA"
 team_away = "GERMANY"
 
 [node name="Spanwns" type="Node2D" parent="ActorsContainer"]
@@ -135,4 +135,4 @@ collision_mask = 0
 polygon = PackedVector2Array(17, -13, 25, -6, 16, 113, 1, 111)
 
 [node name="Ball" parent="ActorsContainer" instance=ExtResource("5_am073")]
-position = Vector2(128, 110)
+position = Vector2(494, 155)

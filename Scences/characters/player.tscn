@@ -13,8 +13,8 @@ resource_local_to_scene = true
 shader = ExtResource("2_myb68")
 shader_parameter/skin_palette = ExtResource("3_jdbb3")
 shader_parameter/team_palette = ExtResource("4_8id03")
-shader_parameter/skin_color = 2
-shader_parameter/team_color = 0
+shader_parameter/skin_color = 0
+shader_parameter/team_color = 4
 
 [sub_resource type="Animation" id="Animation_yiwlq"]
 length = 0.001

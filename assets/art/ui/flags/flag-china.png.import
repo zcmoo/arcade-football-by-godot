@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://tyg7sqp1w3jx"
-path="res://.godot/imported/flag-england.png-fc0a6a993bd812ed9d177076a269a79d.ctex"
+path="res://.godot/imported/flag-china.png-abf26690549a4a54c9792bc246d1a276.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/art/ui/flags/flag-england.png"
-dest_files=["res://.godot/imported/flag-england.png-fc0a6a993bd812ed9d177076a269a79d.ctex"]
+source_file="res://assets/art/ui/flags/flag-china.png"
+dest_files=["res://.godot/imported/flag-china.png-abf26690549a4a54c9792bc246d1a276.ctex"]
 
 [params]
 

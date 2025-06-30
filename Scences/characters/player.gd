@@ -5,7 +5,7 @@ const CONTROL_SCHEME_MAP : Dictionary = {
 	ControlScheme.P1 : preload("res://assets/art/props/1p.png"),
 	ControlScheme.P2 : preload("res://assets/art/props/2p.png")
 }
-const CONTRIES = ["DEFAULT", "FRANCE", "ARGENTINA", "BRAZIL", "ENGLAND", "GERMANY", "ITALY", "SPAIN", "USA"]
+const CONTRIES = ["DEFAULT", "FRANCE", "ARGENTINA", "BRAZIL", "CHINA", "GERMANY", "ITALY", "SPAIN", "USA"]
 const GRAVITY = 8.0
 const BALL_CONTROL_HEIGHT_MAX = 10
 enum ControlScheme {CPU, P1, P2}
@@ -23,7 +23,6 @@ enum SkinColor {LIGHT, MEDIUM, DARK}
 @onready var teammate_detection_area : Area2D = %TeammateDetctionArea
 @onready var control_sprite : Sprite2D = %ControlSprite
 @onready var ball_dection_area : Area2D = %BallDectionArea
-@onready var camera : Camera2D = %Camera2D
 var country = ""
 var current_state : PlayerState = null 
 var state_factory := PlayerStateFactory.new()
@@ -33,24 +32,32 @@ var height_velocity = 0.0
 var fullname = ""
 var role = Player.Role.MIDFIELD
 var skin_color = Player.SkinColor.MEDIUM
+var ai_behavior : AIBehavior = AIBehavior.new()
+var spawn_position = Vector2.ZERO
+var weight_on_duty_steering = 0.0
 
-
+# 初始化
 func _ready() -> void:
 	set_control_texture()
-	switch_state(State.MOVING) # 初始化状态节点
+	switch_state(State.MOVING) 
 	set_shader_properties()
+	setup_ai_behavior()
+	spawn_position = position
 
 func _process(delta: float) -> void:
 	flip_sprite()
 	set_sprite_visiblity()
 	process_gravity(delta)
 	move_and_slide()
+	#if self.has_ball():
+		#print(self.name)
+		#print(self.velocity)
 
 func switch_state(state: State, state_data: PlayerStateData = PlayerStateData.new()) -> void:
 	if current_state != null:
 		current_state.queue_free() # 销毁掉上一个状态子节点
 	current_state = state_factory.get_fresh_state(state) # 实例化
-	current_state.setup(self, state_data, animation_player, ball, teammate_detection_area, ball_dection_area, own_goal, target_goal, camera) # 为当前子节点安装必要组件依赖
+	current_state.setup(self, state_data, animation_player, ball, teammate_detection_area, ball_dection_area, own_goal, target_goal, ai_behavior) # 为当前子节点安装必要组件依赖
 	current_state.state_transition_requested.connect(switch_state.bind()) # 触发调用该方法的信号
 	current_state.name = "PlayerStateMachine" + str(state) # 可视化
 	call_deferred("add_child", current_state) # 将现在的状态子节点添加到父节点中
@@ -118,3 +125,8 @@ func set_shader_properties() -> void:
 	var country_color = CONTRIES.find(country)
 	country_color = clamp(country_color, 0 , CONTRIES.size() - 1)
 	player_sprite.material.set_shader_parameter("team_color", country_color)
+
+func setup_ai_behavior() -> void:
+	ai_behavior.setup(self, ball)
+	ai_behavior.name = "AI Behavior"
+	add_child(ai_behavior)

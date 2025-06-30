@@ -7,7 +7,7 @@ extends Resource
 @export var speed : float
 
 
-func _init(player_name: String, player_skin_color: Player.SkinColor, player_role: Player.Role, player_power: float, player_speed: float) -> void:
+func _init(player_name: String, player_skin_color: Player.SkinColor, player_role: Player.Role, player_speed: float, player_power: float) -> void:
 	full_name = player_name
 	skin_color = player_skin_color
 	role = player_role
