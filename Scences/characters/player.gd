@@ -8,6 +8,7 @@ const CONTROL_SCHEME_MAP : Dictionary = {
 const CONTRIES = ["DEFAULT", "FRANCE", "ARGENTINA", "BRAZIL", "CHINA", "GERMANY", "ITALY", "SPAIN", "USA"]
 const GRAVITY = 8.0
 const BALL_CONTROL_HEIGHT_MAX = 10
+const WALK_ANIM_THRESHDLD = 0.6
 enum ControlScheme {CPU, P1, P2}
 enum State {MOVING, TACKLING, RECOVERING, PREPPRING_SHOOT, SHOOTING, PASSING, HEADER, VOLLEY_KICK, BICYCLE_KICK, CHEST_CONTROL}
 enum Role {GOALE, DEFNSE, MIDFIELD, OFFNSE}
@@ -49,9 +50,6 @@ func _process(delta: float) -> void:
 	set_sprite_visiblity()
 	process_gravity(delta)
 	move_and_slide()
-	#if self.has_ball():
-		#print(self.name)
-		#print(self.velocity)
 
 func switch_state(state: State, state_data: PlayerStateData = PlayerStateData.new()) -> void:
 	if current_state != null:
@@ -63,10 +61,13 @@ func switch_state(state: State, state_data: PlayerStateData = PlayerStateData.ne
 	call_deferred("add_child", current_state) # 将现在的状态子节点添加到父节点中
 
 func set_movement_animation() -> void:
-	if velocity.length() > 0:
-		animation_player.play("run")
-	else:
+	var vel_length = velocity.length()
+	if  vel_length < 1:
 		animation_player.play("idle")
+	elif vel_length < speed * WALK_ANIM_THRESHDLD:
+		animation_player.play("walk")
+	else:
+		animation_player.play("run")
 
 func set_heading() -> void:
 	if velocity.x > 0:
@@ -130,3 +131,7 @@ func setup_ai_behavior() -> void:
 	ai_behavior.setup(self, ball)
 	ai_behavior.name = "AI Behavior"
 	add_child(ai_behavior)
+
+func is_facing_target_goal() -> bool:
+	var direction_to_target_goal = position.direction_to(target_goal.position)
+	return heading.dot(direction_to_target_goal) > 0

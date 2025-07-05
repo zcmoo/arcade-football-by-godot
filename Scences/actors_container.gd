@@ -48,9 +48,8 @@ func set_on_duty_weights() -> void:
 		cpu_player.sort_custom(func(p1: Player, p2:Player): return p1.spawn_position.distance_squared_to(ball.position) < p2.spawn_position.distance_squared_to(ball.position))
 		for i in range(cpu_player.size()):
 			cpu_player[i].weight_on_duty_steering = 1 - ease(float(i) / 10.0, 0.1)
-			print(cpu_player[0].fullname)
 
 func _process(_delta: float) -> void:
 	if Time.get_ticks_msec() - time_since_last_cache_refresh > DURTION_WEIGHT_CACHE:
-		time_since_last_cache_refresh = Time.get_ticks_usec()
+		time_since_last_cache_refresh = Time.get_ticks_msec()
 		set_on_duty_weights()

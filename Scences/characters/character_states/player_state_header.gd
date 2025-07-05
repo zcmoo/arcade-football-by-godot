@@ -4,7 +4,7 @@ const HEIGHT_START = 0.1
 const HEIGHT_VELOCITY = 1.5
 const BONUS_POWER = 5.0
 const BALL_HEIGHT_MAX = 30.0
-const BALL_HEIGHT_MIN = 10.0
+const BALL_HEIGHT_MIN = 1.0
 
 
 func _enter_tree() -> void:
