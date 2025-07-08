@@ -10,7 +10,7 @@ const GRAVITY = 8.0
 const BALL_CONTROL_HEIGHT_MAX = 10
 const WALK_ANIM_THRESHDLD = 0.6
 enum ControlScheme {CPU, P1, P2}
-enum State {MOVING, TACKLING, RECOVERING, PREPPRING_SHOOT, SHOOTING, PASSING, HEADER, VOLLEY_KICK, BICYCLE_KICK, CHEST_CONTROL}
+enum State {MOVING, TACKLING, RECOVERING, PREPPRING_SHOOT, SHOOTING, PASSING, HEADER, VOLLEY_KICK, BICYCLE_KICK, CHEST_CONTROL, HURT, DIVING}
 enum Role {GOALE, DEFNSE, MIDFIELD, OFFNSE}
 enum SkinColor {LIGHT, MEDIUM, DARK}
 @export var power : float
@@ -24,25 +24,35 @@ enum SkinColor {LIGHT, MEDIUM, DARK}
 @onready var teammate_detection_area : Area2D = %TeammateDetctionArea
 @onready var control_sprite : Sprite2D = %ControlSprite
 @onready var ball_dection_area : Area2D = %BallDectionArea
+@onready var tackle_damage_emitter_area : Area2D = %TackleDamageEmitterArea
+@onready var opponent_detection_area : Area2D = %OpponentDetectionArea
+@onready var permanent_damage_emitter_area : Area2D = %PermanentDamageEmitter
+@onready var GoalierHands : CollisionShape2D = %GoalierHands
 var country = ""
 var current_state : PlayerState = null 
 var state_factory := PlayerStateFactory.new()
+var ai_behavior_factory = AiBehaviorFactory.new()
+var current_ai_behavior = null
 var heading := Vector2.RIGHT
 var height = 0.0
 var height_velocity = 0.0
 var fullname = ""
 var role = Player.Role.MIDFIELD
 var skin_color = Player.SkinColor.MEDIUM
-var ai_behavior : AIBehavior = AIBehavior.new()
 var spawn_position = Vector2.ZERO
 var weight_on_duty_steering = 0.0
+
 
 # 初始化
 func _ready() -> void:
 	set_control_texture()
+	setup_ai_behavior()
 	switch_state(State.MOVING) 
 	set_shader_properties()
-	setup_ai_behavior()
+	permanent_damage_emitter_area.monitoring = role == self.Role.GOALE
+	GoalierHands.disabled = role != self.Role.GOALE
+	tackle_damage_emitter_area.body_entered.connect(on_tackle_player.bind())
+	permanent_damage_emitter_area.body_entered.connect(on_tackle_player.bind())
 	spawn_position = position
 
 func _process(delta: float) -> void:
@@ -53,11 +63,11 @@ func _process(delta: float) -> void:
 
 func switch_state(state: State, state_data: PlayerStateData = PlayerStateData.new()) -> void:
 	if current_state != null:
-		current_state.queue_free() # 销毁掉上一个状态子节点
-	current_state = state_factory.get_fresh_state(state) # 实例化
-	current_state.setup(self, state_data, animation_player, ball, teammate_detection_area, ball_dection_area, own_goal, target_goal, ai_behavior) # 为当前子节点安装必要组件依赖
-	current_state.state_transition_requested.connect(switch_state.bind()) # 触发调用该方法的信号
-	current_state.name = "PlayerStateMachine" + str(state) # 可视化
+		current_state.queue_free() # 如果有上一个状态子节点就销毁掉上一个状态子节点
+	current_state = state_factory.get_fresh_state(state) # 实例化当前状态
+	current_state.setup(self, state_data, animation_player, ball, teammate_detection_area, ball_dection_area, own_goal, target_goal, current_ai_behavior, tackle_damage_emitter_area) # 为当前玩家状态子节点安装必要组件依赖
+	current_state.state_transition_requested.connect(switch_state.bind()) # 递归切换下一个状态
+	current_state.name = "PlayerStateMachine" + str(state) # 可视化子节点名字
 	call_deferred("add_child", current_state) # 将现在的状态子节点添加到父节点中
 
 func set_movement_animation() -> void:
@@ -78,9 +88,12 @@ func set_heading() -> void:
 func flip_sprite() -> void:
 	if heading == Vector2.RIGHT:
 		player_sprite.flip_h = false
+		tackle_damage_emitter_area.scale.x = 1
+		opponent_detection_area.scale.x = 1
 	elif heading == Vector2.LEFT:
 		player_sprite.flip_h = true
-
+		tackle_damage_emitter_area.scale.x = -1
+		opponent_detection_area.scale.x = -1
 func has_ball() -> bool:
 	if ball:
 		return ball.carrier == self
@@ -97,7 +110,7 @@ func set_sprite_visiblity() -> void:
 	control_sprite.visible = has_ball() or not control_scheme == ControlScheme.CPU
 
 func process_gravity(delta: float) -> void:
-	if height > 0:
+	if height > 0 or height_velocity > 0:
 		height_velocity -= GRAVITY * delta
 		height += height_velocity
 		if height < 0:
@@ -128,10 +141,21 @@ func set_shader_properties() -> void:
 	player_sprite.material.set_shader_parameter("team_color", country_color)
 
 func setup_ai_behavior() -> void:
-	ai_behavior.setup(self, ball)
-	ai_behavior.name = "AI Behavior"
-	add_child(ai_behavior)
+	current_ai_behavior = ai_behavior_factory.get_ai_behavior(role)
+	current_ai_behavior.setup(self, ball, opponent_detection_area)
+	current_ai_behavior.name = "AI Behavior"
+	add_child(current_ai_behavior)
 
 func is_facing_target_goal() -> bool:
 	var direction_to_target_goal = position.direction_to(target_goal.position)
 	return heading.dot(direction_to_target_goal) > 0
+
+func on_tackle_player(player: Player) -> void:
+	if player != self and player.country != country and player == ball.carrier:
+		player.get_hurt(position.direction_to(player.position))
+	
+func get_hurt(hurt_origin: Vector2) -> void:
+	switch_state(Player.State.HURT, PlayerStateData.build().set_hurt_direction(hurt_origin)) 
+
+func can_carry_ball() -> bool:
+	return current_state != null and current_state.can_carry_ball()

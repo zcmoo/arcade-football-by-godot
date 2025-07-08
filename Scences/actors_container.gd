@@ -17,12 +17,12 @@ func _ready() -> void:
 	squad_home = sqawn_players(team_home, goal_home)
 	sqawns.scale.x = -1
 	squad_away = sqawn_players(team_away, goal_away)
-	var player1 : Player = get_children().filter(func(p): return p is Player)[0]
+	var player1 : Player = get_children().filter(func(p): return p is Player)[3]
 	player1.control_scheme = Player.ControlScheme.P1
-	var player2 : Player = get_children().filter(func(p): return p is Player)[1]
-	player2.control_scheme = Player.ControlScheme.P2
+	#var player2 : Player = get_children().filter(func(p): return p is Player)[1]
+	#player2.control_scheme = Player.ControlScheme.P2
 	player1.set_control_texture()
-	player2.set_control_texture()
+	#player2.set_control_texture()
 
 func sqawn_players(country: String, own_goal: Goal) -> Array[Player]:
 	var player_node : Array[Player] = []

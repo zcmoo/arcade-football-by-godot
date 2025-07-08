@@ -118,40 +118,40 @@
 }, {
 	"country": "CHINA",
 	"players": [{
-		"name": "范志毅",
+		"name": "徐云龙",
 		"skin": 0,
 		"role": 0,
-		"speed": 80,
-		"power": 300,
+		"speed": 100,
+		"power": 165,
 	}, {
 		"name": "孙继海",
 		"skin": 0,
 		"role": 1,
-		"speed": 70,
+		"speed": 100,
 		"power": 165,
 	}, {
 		"name": "李玮峰",
 		"skin": 0,
 		"role": 1,
-		"speed": 75,
+		"speed": 100,
 		"power": 171,
 	}, {
-		"name": "徐云龙",
+		"name": "范志毅",
 		"skin": 0,
 		"role": 2,
-		"speed": 76,
-		"power": 165,
+		"speed": 180,
+		"power": 200,
 	}, {
 		"name": "邵佳一",
 		"skin": 0,
 		"role": 3,
-		"speed": 78,
+		"speed": 100,
 		"power": 183,
 	}, {
 		"name": "李霄鹏",
 		"skin": 2,
 		"role": 3,
-		"speed": 81,
+		"speed": 100,
 		"power": 165,
 	}]
 }, {

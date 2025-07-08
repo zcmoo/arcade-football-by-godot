@@ -3,6 +3,7 @@ extends Node2D
 @onready var back_net_area : Area2D = %BackNetArea
 @onready var targets : Node2D = %Targets
 @onready var camera : Camera2D = %Camera2D
+@onready var scoring_area : Area2D = %ScoringArea
 
 
 func _ready() -> void:
@@ -17,3 +18,12 @@ func get_random_target_position() -> Vector2:
 
 func get_center_target_position() -> Vector2:
 	return targets.get_child(int(targets.get_child_count() / 2.0)).global_position
+
+func get_top_target_position() -> Vector2:
+	return targets.get_child(0).global_position
+	
+func get_bottom_target_position() -> Vector2:
+	return targets.get_child(targets.get_child_count() - 1).global_position
+
+func get_scoring_area() -> Area2D:
+	return scoring_area

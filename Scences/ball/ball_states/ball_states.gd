@@ -1,6 +1,6 @@
 class_name BallState
 extends Node
-signal	state_transition_requested(new_state: Ball.State)
+signal state_transition_requested(new_state: Ball.State)
 var player_dection_area : Area2D = null
 var ball : Ball = null
 var carrier : Player = null 

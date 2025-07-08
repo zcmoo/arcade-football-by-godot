@@ -9,8 +9,10 @@ var height = 0.0
 var height_velocity = 0.0
 const BOUNCINESS = 0.8
 const DiSTANCE_HIGHT_PASS = 130
+const TUBLE_HIGHT_VELOCITY = 3
 @onready var player_detection_area : Area2D = %PlayerDetectionArea
 @onready var animation_player : AnimationPlayer = %AnimationPlayer
+@onready var raycast : RayCast2D = %RayCast2D
 @onready var ball_sprite : Sprite2D = %BallSprite
 @export var friction_air : float
 @export var friction_ground : float
@@ -21,6 +23,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	ball_sprite.position = Vector2.UP * height
+	raycast.rotation = velocity.angle()
 	if self.position.x > 850:
 		self.position = Vector2(802, 174)
 	elif self.position.x < 0:
@@ -40,6 +43,12 @@ func shoot(shot_velocity) -> void:
 	carrier = null
 	switch_state(Ball.State.SHOT)
 
+func tumble(tumble_velocity: Vector2) -> void:
+	velocity = tumble_velocity
+	carrier = null
+	height_velocity = TUBLE_HIGHT_VELOCITY
+	switch_state(Ball.State.FREEFORM)
+
 func pass_to(destination: Vector2) -> void:
 	var directon = position.direction_to(destination)
 	var distance = position.distance_to(destination)
@@ -58,3 +67,8 @@ func can_air_interact() -> bool:
 
 func can_air_connect(air_connect_min_height: float, air_connect_max_height: float) -> bool:
 	return height >= air_connect_min_height and height <= air_connect_max_height
+
+func is_headed_for_scoring_area(scoring_area: Area2D) -> bool:
+	if not raycast.is_colliding():
+		return false
+	return raycast.get_collider() == scoring_area
