@@ -1,21 +1,25 @@
 class_name BallState
 extends Node
 signal state_transition_requested(new_state: Ball.State)
+const GRAVITY = 10
 var player_dection_area : Area2D = null
 var ball : Ball = null
 var carrier : Player = null 
 var animation_player : AnimationPlayer = null	
 var sprite : Sprite2D = null
-const GRAVITY = 10
-
+var state_data : BallStateData = null
 
 # 各个状态的依赖项
-func setup(context_ball:Ball, context_player_dection_area: Area2D, context_carrier: Player, context_animation_player: AnimationPlayer, context_sprite: Sprite2D) -> void:
+func setup(context_ball:Ball, context_player_dection_area: Area2D, context_carrier: Player, context_animation_player: AnimationPlayer, context_sprite: Sprite2D, context_state_data: BallStateData) -> void:
 	ball = context_ball
 	player_dection_area = context_player_dection_area
 	carrier = context_carrier
 	animation_player = context_animation_player
 	sprite = context_sprite
+	state_data = context_state_data
+
+func transition_state(new_state: Ball.State, data: BallStateData = BallStateData.new()):
+	state_transition_requested.emit(new_state, data)
 
 func set_ball_animation_from_velocity() -> void:
 	if ball.velocity == Vector2.ZERO:
@@ -44,4 +48,4 @@ func move_and_bounce(delta: float) -> void:
 		ball.switch_state(Ball.State.FREEFORM)
 
 func can_air_interact() -> bool:
-	return false
+	return false # override me

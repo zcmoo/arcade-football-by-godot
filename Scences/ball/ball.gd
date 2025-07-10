@@ -10,6 +10,8 @@ var height_velocity = 0.0
 const BOUNCINESS = 0.8
 const DiSTANCE_HIGHT_PASS = 130
 const TUBLE_HIGHT_VELOCITY = 3
+const DURATION_TUMBLE_LOCK = 200
+const DURATION_PASS_LOCK = 500
 @onready var player_detection_area : Area2D = %PlayerDetectionArea
 @onready var animation_player : AnimationPlayer = %AnimationPlayer
 @onready var raycast : RayCast2D = %RayCast2D
@@ -29,11 +31,11 @@ func _process(delta: float) -> void:
 	elif self.position.x < 0:
 		self.position = Vector2(48, 174)
 
-func switch_state(state: Ball.State) -> void:
+func switch_state(state: Ball.State, data: BallStateData = BallStateData.new()) -> void:
 	if current_state != null:
 		current_state.queue_free()
 	current_state = state_factory.get_fresh_state(state)	
-	current_state.setup(self, player_detection_area, carrier, animation_player, ball_sprite) #状态子节点所需依赖项(球的属性，播放器等)
+	current_state.setup(self, player_detection_area, carrier, animation_player, ball_sprite, data) #状态子节点所需依赖项(球的属性，播放器等)
 	current_state.state_transition_requested.connect(switch_state.bind()) # 监听器
 	current_state.name = "BallStateMachine" + str(state) # 可视化
 	call_deferred("add_child", current_state) # 将现在的状态子节点添加到父节点中
@@ -47,7 +49,7 @@ func tumble(tumble_velocity: Vector2) -> void:
 	velocity = tumble_velocity
 	carrier = null
 	height_velocity = TUBLE_HIGHT_VELOCITY
-	switch_state(Ball.State.FREEFORM)
+	switch_state(Ball.State.FREEFORM, BallStateData.build().set_lock_duration(DURATION_TUMBLE_LOCK))
 
 func pass_to(destination: Vector2) -> void:
 	var directon = position.direction_to(destination)
@@ -57,7 +59,7 @@ func pass_to(destination: Vector2) -> void:
 	if distance > DiSTANCE_HIGHT_PASS:
 		height_velocity = BallState.GRAVITY * distance / (1.8 * velocity_x)
 	carrier = null
-	switch_state(Ball.State.FREEFORM)
+	switch_state(Ball.State.FREEFORM, BallStateData.build().set_lock_duration(DURATION_PASS_LOCK))
 
 func stop() -> void:
 	velocity = Vector2.ZERO

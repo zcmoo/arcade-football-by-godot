@@ -19,9 +19,9 @@ func _ready() -> void:
 	squad_away = sqawn_players(team_away, goal_away)
 	var player1 : Player = get_children().filter(func(p): return p is Player)[3]
 	player1.control_scheme = Player.ControlScheme.P1
+	player1.set_control_texture()
 	#var player2 : Player = get_children().filter(func(p): return p is Player)[1]
 	#player2.control_scheme = Player.ControlScheme.P2
-	player1.set_control_texture()
 	#player2.set_control_texture()
 
 func sqawn_players(country: String, own_goal: Goal) -> Array[Player]:
@@ -40,6 +40,7 @@ func sqawn_players(country: String, own_goal: Goal) -> Array[Player]:
 func spawn_player(player_position: Vector2, own_goal: Goal, target_goal: Goal, player_data: PlayerResource, country: String):
 	var player = PLAYER_PREFAB.instantiate()
 	player.initialize(player_position, ball, own_goal, target_goal, player_data, country)
+	player.swap_requested.connect(on_player_swap_request.bind())
 	return player
 
 func set_on_duty_weights() -> void:
@@ -53,3 +54,15 @@ func _process(_delta: float) -> void:
 	if Time.get_ticks_msec() - time_since_last_cache_refresh > DURTION_WEIGHT_CACHE:
 		time_since_last_cache_refresh = Time.get_ticks_msec()
 		set_on_duty_weights()
+
+func on_player_swap_request(requester: Player) -> void:
+	var squad = squad_home if requester.country == squad_home[0].country else squad_away
+	var cpu_players : Array[Player] = squad.filter(func(p: Player): return p.control_scheme == Player.ControlScheme.CPU and p.role != Player.Role.GOALE)
+	cpu_players.sort_custom(func(p1: Player, p2:Player): return p1.position.distance_squared_to(ball.position) < p2.position.distance_squared_to(ball.position))
+	var closest_cpu_to_ball: Player = cpu_players[0]
+	if closest_cpu_to_ball.position.distance_squared_to(ball.position) < requester.position.distance_squared_to(ball.position):
+		var player_control_scheme = requester.control_scheme
+		closest_cpu_to_ball.control_scheme = player_control_scheme
+		closest_cpu_to_ball.set_control_texture()
+		requester.control_scheme = Player.ControlScheme.CPU
+		requester.set_control_texture()

@@ -1,5 +1,6 @@
 class_name Player
 extends CharacterBody2D
+signal swap_requested(player: Player)
 const CONTROL_SCHEME_MAP : Dictionary = {
 	ControlScheme.CPU : preload("res://assets/art/props/cpu.png"),
 	ControlScheme.P1 : preload("res://assets/art/props/1p.png"),
@@ -142,7 +143,7 @@ func set_shader_properties() -> void:
 
 func setup_ai_behavior() -> void:
 	current_ai_behavior = ai_behavior_factory.get_ai_behavior(role)
-	current_ai_behavior.setup(self, ball, opponent_detection_area)
+	current_ai_behavior.setup(self, ball, opponent_detection_area, teammate_detection_area)
 	current_ai_behavior.name = "AI Behavior"
 	add_child(current_ai_behavior)
 
@@ -153,9 +154,13 @@ func is_facing_target_goal() -> bool:
 func on_tackle_player(player: Player) -> void:
 	if player != self and player.country != country and player == ball.carrier:
 		player.get_hurt(position.direction_to(player.position))
-	
+
 func get_hurt(hurt_origin: Vector2) -> void:
 	switch_state(Player.State.HURT, PlayerStateData.build().set_hurt_direction(hurt_origin)) 
 
 func can_carry_ball() -> bool:
 	return current_state != null and current_state.can_carry_ball()
+
+func get_pass_request(player: Player) -> void:
+	if ball.carrier == self and current_state != null and current_state.can_pass():
+		switch_state(Player.State.PASSING, PlayerStateData.build().set_pass_target(player))

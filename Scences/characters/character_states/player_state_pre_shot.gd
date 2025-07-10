@@ -11,7 +11,7 @@ func _enter_tree() -> void:
 	player.velocity = Vector2.ZERO
 	time_start_shoot = Time.get_ticks_msec()
 	shot_directin = player.heading
-	
+
 func _process(delta: float) -> void:
 	shot_directin += KeyUtils.get_input_vector(player.control_scheme) * delta
 	if KeyUtils.is_action_just_released(player.control_scheme, KeyUtils.Action.SHOOT):
@@ -22,4 +22,6 @@ func _process(delta: float) -> void:
 		shot_directin = shot_directin.normalized()
 		var state_data = PlayerStateData.build().set_shot_power(shot_power).set_shot_direction(shot_directin)
 		transition_state(Player.State.SHOOTING, state_data)
-		
+
+func can_pass() -> bool:
+	return true	
