@@ -34,8 +34,12 @@ func perform_ai_decision() -> void:
 			var shot_direction = player.position.direction_to(player.target_goal.get_random_target_position())
 			var data = PlayerStateData.build().set_shot_power(player.power).set_shot_direction(shot_direction)
 			player.switch_state(Player.State.SHOOTING, data)
-		elif randf() < PASS_PROBABLITY and has_opponent_nearby() and has_teammate_in_view():
+		elif randf() < PASS_PROBABLITY and player.country == GameManager.contries[0] and has_opponent_nearby():
 			player.switch_state(Player.State.PASSING)
+		elif randf() < PASS_PROBABLITY and player.country == GameManager.contries[1] and has_opponent_nearby() and has_teammate_in_view():
+			player.switch_state(Player.State.PASSING)
+		#elif randf() < PASS_PROBABLITY and has_opponent_nearby() and has_teammate_in_view():
+			#player.switch_state(Player.State.PASSING)
 
 func get_bicircular_weight(postion: Vector2, center_target: Vector2, inner_circle_radius: float, inner_circle_weight: float, outer_circle_radius: float, outer_circle_weight: float) -> float:
 	var distance_to_center = postion.distance_to(center_target)

@@ -16,7 +16,7 @@ func set_shot_power(power: float) -> PlayerStateData:
 	shot_power = power
 	return self
 
-func	 set_hurt_direction(dirction: Vector2) -> PlayerStateData:
+func set_hurt_direction(dirction: Vector2) -> PlayerStateData:
 	hurt_direction = dirction
 	return self
 

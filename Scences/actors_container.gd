@@ -4,8 +4,6 @@ const PLAYER_PREFAB = preload("res://Scences/characters/player.tscn")
 @export var ball : Ball
 @export var goal_home : Goal
 @export var goal_away : Goal
-@export var team_home : String
-@export var team_away : String
 @onready var sqawns : Node2D = %Spanwns
 var squad_home : Array[Player] = []
 var squad_away : Array[Player] = []
@@ -14,9 +12,11 @@ var time_since_last_cache_refresh = Time.get_ticks_msec()
 
 
 func _ready() -> void:
-	squad_home = sqawn_players(team_home, goal_home)
+	squad_home = sqawn_players(GameManager.contries[0], goal_home)
+	goal_home.initialize(GameManager.contries[0])
 	sqawns.scale.x = -1
-	squad_away = sqawn_players(team_away, goal_away)
+	squad_away = sqawn_players(GameManager.contries[1], goal_away)
+	goal_away.initialize(GameManager.contries[1])
 	var player1 : Player = get_children().filter(func(p): return p is Player)[3]
 	player1.control_scheme = Player.ControlScheme.P1
 	player1.set_control_texture()

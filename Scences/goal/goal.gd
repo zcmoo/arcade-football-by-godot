@@ -4,14 +4,22 @@ extends Node2D
 @onready var targets : Node2D = %Targets
 @onready var camera : Camera2D = %Camera2D
 @onready var scoring_area : Area2D = %ScoringArea
+var country = "" 
 
 
 func _ready() -> void:
 	back_net_area.body_entered.connect(on_ball_enter_back_net.bind())
+	scoring_area.body_entered.connect(on_ball_enter_scoring_area.bind())
 
 func on_ball_enter_back_net(ball: Ball) -> void:	
 	ball.stop()
 	camera.shake()
+
+func initialize(context_country: String) -> void:
+	country = context_country
+
+func on_ball_enter_scoring_area(ball: Ball) -> void:
+	GameEvents.team_scored.emit(country)
 
 func get_random_target_position() -> Vector2:
 	return targets.get_child(randi_range(0, targets.get_child_count() - 1)).global_position

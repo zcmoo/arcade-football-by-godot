@@ -77,6 +77,7 @@ shape = SubResource("RectangleShape2D_8y6sp")
 
 [node name="ScoringArea" type="Area2D" parent="."]
 unique_name_in_owner = true
+position = Vector2(3, -2)
 collision_layer = 16
 collision_mask = 4
 

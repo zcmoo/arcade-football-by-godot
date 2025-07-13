@@ -19,6 +19,8 @@ config/icon="res://icon.svg"
 
 KeyUtils="*res://utils/key_utils.gd"
 DataLoadere="*res://utils/data_loadere.gd"
+GameEvents="*res://utils/game_events.gd"
+GameManager="*res://Scences/GamerManager/game_manager.gd"
 
 [display]
 

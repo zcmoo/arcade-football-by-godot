@@ -11,7 +11,7 @@ const GRAVITY = 8.0
 const BALL_CONTROL_HEIGHT_MAX = 10
 const WALK_ANIM_THRESHDLD = 0.6
 enum ControlScheme {CPU, P1, P2}
-enum State {MOVING, TACKLING, RECOVERING, PREPPRING_SHOOT, SHOOTING, PASSING, HEADER, VOLLEY_KICK, BICYCLE_KICK, CHEST_CONTROL, HURT, DIVING}
+enum State {MOVING, TACKLING, RECOVERING, PREPPRING_SHOOT, SHOOTING, PASSING, HEADER, VOLLEY_KICK, BICYCLE_KICK, CHEST_CONTROL, HURT, DIVING, CELEBRATING, MOUNING}
 enum Role {GOALE, DEFNSE, MIDFIELD, OFFNSE}
 enum SkinColor {LIGHT, MEDIUM, DARK}
 @export var power : float
@@ -29,6 +29,7 @@ enum SkinColor {LIGHT, MEDIUM, DARK}
 @onready var opponent_detection_area : Area2D = %OpponentDetectionArea
 @onready var permanent_damage_emitter_area : Area2D = %PermanentDamageEmitter
 @onready var GoalierHands : CollisionShape2D = %GoalierHands
+var actors_container: Node2D
 var country = ""
 var current_state : PlayerState = null 
 var state_factory := PlayerStateFactory.new()
@@ -46,6 +47,7 @@ var weight_on_duty_steering = 0.0
 
 # 初始化
 func _ready() -> void:
+	actors_container = get_tree().get_root().get_node("World/ActorsContainer")
 	set_control_texture()
 	setup_ai_behavior()
 	switch_state(State.MOVING) 
@@ -54,6 +56,7 @@ func _ready() -> void:
 	GoalierHands.disabled = role != self.Role.GOALE
 	tackle_damage_emitter_area.body_entered.connect(on_tackle_player.bind())
 	permanent_damage_emitter_area.body_entered.connect(on_tackle_player.bind())
+	GameEvents.team_scored.connect(on_team_scored.bind())
 	spawn_position = position
 
 func _process(delta: float) -> void:
@@ -66,7 +69,7 @@ func switch_state(state: State, state_data: PlayerStateData = PlayerStateData.ne
 	if current_state != null:
 		current_state.queue_free() # 如果有上一个状态子节点就销毁掉上一个状态子节点
 	current_state = state_factory.get_fresh_state(state) # 实例化当前状态
-	current_state.setup(self, state_data, animation_player, ball, teammate_detection_area, ball_dection_area, own_goal, target_goal, current_ai_behavior, tackle_damage_emitter_area) # 为当前玩家状态子节点安装必要组件依赖
+	current_state.setup(self, state_data, animation_player, ball, teammate_detection_area, ball_dection_area, own_goal, target_goal, current_ai_behavior, tackle_damage_emitter_area, actors_container) # 为当前玩家状态子节点安装必要组件依赖
 	current_state.state_transition_requested.connect(switch_state.bind()) # 递归切换下一个状态
 	current_state.name = "PlayerStateMachine" + str(state) # 可视化子节点名字
 	call_deferred("add_child", current_state) # 将现在的状态子节点添加到父节点中
@@ -164,3 +167,9 @@ func can_carry_ball() -> bool:
 func get_pass_request(player: Player) -> void:
 	if ball.carrier == self and current_state != null and current_state.can_pass():
 		switch_state(Player.State.PASSING, PlayerStateData.build().set_pass_target(player))
+
+func on_team_scored(team_scored_on: String) -> void:
+	if country == team_scored_on:
+		switch_state(Player.State.MOUNING)
+	else:
+		switch_state(Player.State.CELEBRATING)
