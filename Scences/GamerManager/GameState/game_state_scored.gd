@@ -12,4 +12,4 @@ func _enter_tree() -> void:
 
 func _process(delta: float) -> void:
 	if Time.get_ticks_msec() - time_since_celebration > DURATION_CELEBRATING:
-		transition_state(GameManager.State.RESET)
+		transition_state(GameManager.State.RESET, state_data)

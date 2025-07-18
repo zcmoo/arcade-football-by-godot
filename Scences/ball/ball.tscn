@@ -65,7 +65,7 @@ _data = {
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xj3ev"]
-radius = 4.0
+radius = 7.0
 
 [node name="Ball" type="AnimatableBody2D"]
 collision_layer = 4
@@ -100,12 +100,13 @@ offset = Vector2(-8, -16)
 
 [node name="PlayerDetectionArea" type="Area2D" parent="."]
 unique_name_in_owner = true
+position = Vector2(8, -7)
 collision_layer = 0
 collision_mask = 2
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetectionArea"]
-position = Vector2(0, -5)
+position = Vector2(-8, 2)
 shape = SubResource("CircleShape2D_xj3ev")
 
 [node name="RayCast2D" type="RayCast2D" parent="."]

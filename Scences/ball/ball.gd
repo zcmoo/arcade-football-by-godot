@@ -7,11 +7,13 @@ var current_state : BallState = null
 var carrier : Player = null
 var height = 0.0
 var height_velocity = 0.0
+var spawn_postion = Vector2.ZERO
 const BOUNCINESS = 0.8
 const DiSTANCE_HIGHT_PASS = 130
 const TUBLE_HIGHT_VELOCITY = 3
 const DURATION_TUMBLE_LOCK = 200
 const DURATION_PASS_LOCK = 500
+const KICKOFF_PASS_DISTANCE = 30
 @onready var player_detection_area : Area2D = %PlayerDetectionArea
 @onready var animation_player : AnimationPlayer = %AnimationPlayer
 @onready var raycast : RayCast2D = %RayCast2D
@@ -22,6 +24,9 @@ const DURATION_PASS_LOCK = 500
 
 func _ready() -> void:
 	switch_state(State.FREEFORM) # 初始化状态节点
+	spawn_postion = position
+	GameEvents.team_reset.connect(on_team_reset.bind())
+	GameEvents.kickoff_start.connect(on_kickoff_start.bind())
 
 func _process(delta: float) -> void:
 	ball_sprite.position = Vector2.UP * height
@@ -51,7 +56,7 @@ func tumble(tumble_velocity: Vector2) -> void:
 	height_velocity = TUBLE_HIGHT_VELOCITY
 	switch_state(Ball.State.FREEFORM, BallStateData.build().set_lock_duration(DURATION_TUMBLE_LOCK))
 
-func pass_to(destination: Vector2) -> void:
+func pass_to(destination: Vector2, lock_duration: int = DURATION_PASS_LOCK) -> void:
 	var directon = position.direction_to(destination)
 	var distance = position.distance_to(destination)
 	var velocity_x = sqrt(2 * distance * friction_ground)
@@ -59,7 +64,7 @@ func pass_to(destination: Vector2) -> void:
 	if distance > DiSTANCE_HIGHT_PASS:
 		height_velocity = BallState.GRAVITY * distance / (1.8 * velocity_x)
 	carrier = null
-	switch_state(Ball.State.FREEFORM, BallStateData.build().set_lock_duration(DURATION_PASS_LOCK))
+	switch_state(Ball.State.FREEFORM, BallStateData.build().set_lock_duration(lock_duration))
 
 func stop() -> void:
 	velocity = Vector2.ZERO
@@ -74,3 +79,11 @@ func is_headed_for_scoring_area(scoring_area: Area2D) -> bool:
 	if not raycast.is_colliding():
 		return false
 	return raycast.get_collider() == scoring_area
+
+func on_team_reset() -> void:
+	position = spawn_postion
+	velocity = Vector2.ZERO
+	switch_state(State.FREEFORM)
+
+func on_kickoff_start() -> void:
+	pass_to(spawn_postion + Vector2.DOWN * KICKOFF_PASS_DISTANCE, 0)

@@ -17,7 +17,8 @@ func _init() -> void:
 		Player.State.HURT : PlayerStateHurt,
 		Player.State.DIVING : PlayerStateDiving,
 		Player.State.CELEBRATING: PlayerStateCelebrate,
-		Player.State.MOUNING: PlayerStateMouning
+		Player.State.MOUNING: PlayerStateMouning,
+		Player.State.RESET: PlayerStateReset,
 	}
 
 func get_fresh_state(state: Player.State) -> PlayerState:

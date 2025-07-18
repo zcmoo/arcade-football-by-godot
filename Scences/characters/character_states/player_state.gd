@@ -1,6 +1,6 @@
 class_name PlayerState
 extends Node
-signal	state_transition_requested(new_state: Player.State, state_data: PlayerStateData)
+signal state_transition_requested(new_state: Player.State, state_data: PlayerStateData)
 var state_data : PlayerStateData = PlayerStateData.new()
 var animation_player : AnimationPlayer = null
 var player : Player = null
@@ -37,4 +37,7 @@ func can_carry_ball() -> bool:
 	return false # override me
 
 func can_pass() -> bool:
+	return false # override me
+
+func is_ready_for_kickoff() -> bool:
 	return false # override me

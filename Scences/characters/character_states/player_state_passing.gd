@@ -8,37 +8,13 @@ func  _enter_tree() -> void:
 
 func on_animation_complete() -> void:
 	var pass_target = state_data.pass_target
-	if player.control_scheme == Player.ControlScheme.CPU:
-		pass_target = actors_container.get_children().filter(func(child):return child is Player and child.country == player.country and child.control_scheme == Player.ControlScheme.P1)
-		if pass_target.size() > 0:
-			ball.pass_to(pass_target[0].position + pass_target[0].velocity)
-		else:
-			pass_target = state_data.pass_target
-			if pass_target == null:
-				pass_target = find_team_in_view()
-			if pass_target == null:
-				ball.pass_to(ball.position + player.heading * player.speed)
-			else:
-				ball.pass_to(pass_target.position + pass_target.velocity)
-		transition_state(Player.State.MOVING)
+	if pass_target == null:
+		pass_target = find_team_in_view()
+	if pass_target == null:
+		ball.pass_to(ball.position + player.heading * player.speed)
 	else:
-		if pass_target == null:
-			pass_target = find_team_in_view()
-		if pass_target == null:
-			ball.pass_to(ball.position + player.heading * player.speed)
-		else:
-			ball.pass_to(pass_target.position + pass_target.velocity)
-		transition_state(Player.State.MOVING)
-
-#func on_animation_complete() -> void:
-	#var pass_target = state_data.pass_target
-	#if pass_target == null:
-		#pass_target = find_team_in_view()
-	#if pass_target == null:
-		#ball.pass_to(ball.position + player.heading * player.speed)
-	#else:
-		#ball.pass_to(pass_target.position + pass_target.velocity)
-	#transition_state(Player.State.MOVING)
+		ball.pass_to(pass_target.position + pass_target.velocity)
+	transition_state(Player.State.MOVING)
 
 func find_team_in_view() -> Player:
 	var players_in_view = teammate_detetion_area.get_overlapping_bodies()

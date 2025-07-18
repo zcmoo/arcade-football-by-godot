@@ -11,7 +11,7 @@ const GRAVITY = 8.0
 const BALL_CONTROL_HEIGHT_MAX = 10
 const WALK_ANIM_THRESHDLD = 0.6
 enum ControlScheme {CPU, P1, P2}
-enum State {MOVING, TACKLING, RECOVERING, PREPPRING_SHOOT, SHOOTING, PASSING, HEADER, VOLLEY_KICK, BICYCLE_KICK, CHEST_CONTROL, HURT, DIVING, CELEBRATING, MOUNING}
+enum State {MOVING, TACKLING, RECOVERING, PREPPRING_SHOOT, SHOOTING, PASSING, HEADER, VOLLEY_KICK, BICYCLE_KICK, CHEST_CONTROL, HURT, DIVING, CELEBRATING, MOUNING, RESET}
 enum Role {GOALE, DEFNSE, MIDFIELD, OFFNSE}
 enum SkinColor {LIGHT, MEDIUM, DARK}
 @export var power : float
@@ -42,6 +42,7 @@ var fullname = ""
 var role = Player.Role.MIDFIELD
 var skin_color = Player.SkinColor.MEDIUM
 var spawn_position = Vector2.ZERO
+var kickoff_position = Vector2.ZERO
 var weight_on_duty_steering = 0.0
 
 
@@ -50,7 +51,6 @@ func _ready() -> void:
 	actors_container = get_tree().get_root().get_node("World/ActorsContainer")
 	set_control_texture()
 	setup_ai_behavior()
-	switch_state(State.MOVING) 
 	set_shader_properties()
 	permanent_damage_emitter_area.monitoring = role == self.Role.GOALE
 	GoalierHands.disabled = role != self.Role.GOALE
@@ -58,6 +58,8 @@ func _ready() -> void:
 	permanent_damage_emitter_area.body_entered.connect(on_tackle_player.bind())
 	GameEvents.team_scored.connect(on_team_scored.bind())
 	spawn_position = position
+	var initial_position = kickoff_position if country == GameManager.contries[0] else spawn_position
+	switch_state(State.RESET, PlayerStateData.build().set_reset_position(initial_position))
 
 func _process(delta: float) -> void:
 	flip_sprite()
@@ -103,6 +105,9 @@ func has_ball() -> bool:
 		return ball.carrier == self
 	return false
 
+func is_ready_to_kickoff() -> bool:
+	return current_state != null and current_state.is_ready_for_kickoff()
+
 func on_annimation_complete() -> void:
 	if current_state != null:
 		current_state.on_animation_complete()
@@ -125,7 +130,7 @@ func control_ball() -> void:
 	if ball.height > BALL_CONTROL_HEIGHT_MAX:
 		switch_state(Player.State.CHEST_CONTROL)
 
-func initialize(context_player_position: Vector2, context_ball: Ball, context_own_goal: Goal, context_target_goal: Goal, context_player_data: PlayerResource, context_country: String) -> void:
+func initialize(context_player_position: Vector2, context_ball: Ball, context_own_goal: Goal, context_target_goal: Goal, context_player_data: PlayerResource, context_country: String, context_kickoff_postion: Vector2) -> void:
 	position = context_player_position
 	ball = context_ball
 	own_goal = context_own_goal
@@ -137,6 +142,7 @@ func initialize(context_player_position: Vector2, context_ball: Ball, context_ow
 	fullname = context_player_data.full_name
 	heading = Vector2.LEFT if target_goal.position.x < position.x else Vector2.RIGHT
 	country = context_country
+	kickoff_position = context_kickoff_postion
 
 func set_shader_properties() -> void:
 	player_sprite.material.set_shader_parameter("skin_color", skin_color)
@@ -173,3 +179,11 @@ func on_team_scored(team_scored_on: String) -> void:
 		switch_state(Player.State.MOUNING)
 	else:
 		switch_state(Player.State.CELEBRATING)
+
+func face_towards_target_goal() -> void:
+	if not self.is_facing_target_goal():
+		self.heading = self.heading * -1
+
+func set_control_scheme(scheme: ControlScheme) -> void:
+	control_scheme = scheme
+	set_control_texture()

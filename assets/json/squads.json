@@ -139,7 +139,7 @@
 		"name": "范志毅",
 		"skin": 0,
 		"role": 2,
-		"speed": 180,
+		"speed": 100,
 		"power": 500,
 	}, {
 		"name": "邵佳一",
@@ -278,37 +278,37 @@
 		"skin": 0,
 		"role": 0,
 		"speed": 100,
-		"power": 500,
+		"power": 300,
 	}, {
 		"name": "M. MCKENZIE",
 		"skin": 1,
 		"role": 1,
 		"speed": 80,
-		"power": 500,
+		"power": 300,
 	}, {
 		"name": "J. SCALLY",
 		"skin": 0,
 		"role": 1,
 		"speed": 80,
-		"power": 500,
+		"power": 300,
 	}, {
 		"name": "D. LUNA",
 		"skin": 0,
 		"role": 2,
 		"speed": 80,
-		"power": 500,
+		"power": 300,
 	}, {
 		"name": "T. WEAH",
 		"skin": 0,
 		"role": 3,
 		"speed": 80,
-		"power": 500,
+		"power": 300,
 	}, {
 		"name": "C. PULISIC",
 		"skin": 0,
 		"role": 3,
 		"speed": 80,
-		"power": 500,
+		"power": 300,
 	}]
 }, {
 	"country": "CANADA",
