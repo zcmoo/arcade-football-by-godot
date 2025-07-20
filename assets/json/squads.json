@@ -118,37 +118,37 @@
 }, {
 	"country": "CHINA",
 	"players": [{
-		"name": "徐云龙",
+		"name": "XuYunLong",
 		"skin": 0,
 		"role": 0,
 		"speed": 100,
 		"power": 500,
 	}, {
-		"name": "孙继海",
+		"name": "SunJiHai",
 		"skin": 0,
 		"role": 1,
 		"speed": 100,
 		"power": 500,
 	}, {
-		"name": "李玮峰",
+		"name": "LiWeiFeng",
 		"skin": 0,
 		"role": 1,
 		"speed": 100,
 		"power": 500,
 	}, {
-		"name": "范志毅",
+		"name": "FanZhiYi",
 		"skin": 0,
 		"role": 2,
 		"speed": 100,
 		"power": 500,
 	}, {
-		"name": "邵佳一",
+		"name": "ShaoJiaYi",
 		"skin": 0,
 		"role": 3,
 		"speed": 100,
 		"power": 500,
 	}, {
-		"name": "李霄鹏",
+		"name": "LiXiaoPeng",
 		"skin": 2,
 		"role": 3,
 		"speed": 100,

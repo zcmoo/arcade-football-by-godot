@@ -1,6 +1,6 @@
 class_name BallStateFreeform
 extends BallState
-const MAX_BALL_HEIGHT = 25
+const MAX_BALL_HEIGHT = 30
 var time_since_freeform = Time.get_ticks_msec()
 
 

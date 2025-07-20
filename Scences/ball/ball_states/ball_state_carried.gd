@@ -3,11 +3,12 @@ extends BallState
 const OFFSET_FORM_PLAYER := Vector2(10, 4)
 const DRIBBLE_FREQUENCY = 10.0
 const DRIBBLE_INTENSITY = 3.0
-var dribble_time := 0.0
+var dribble_time:= 0.0
 
 
 func _enter_tree() -> void:
 	assert(carrier != null)
+	GameEvents.ball_possessed.emit(carrier.fullname)
 
 func _process(delta: float) -> void:
 	var vx := 0.0
@@ -25,3 +26,6 @@ func _process(delta: float) -> void:
 		animation_player.play("idle")
 	process_gravity(delta)
 	ball.position = carrier.position + Vector2(vx + carrier.heading.x * OFFSET_FORM_PLAYER.x, OFFSET_FORM_PLAYER.y)
+
+func _exit_tree() -> void:
+	GameEvents.ball_released.emit()

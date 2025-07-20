@@ -1,6 +1,6 @@
 class_name PlayerStateVolleyKick
 extends PlayerState
-const BONUS_POWER = 5.0
+const BONUS_POWER = 2.5
 const BALL_HEIGHT_MAX = 20.0
 const BALL_HEIGHT_MIN = 1.0
 

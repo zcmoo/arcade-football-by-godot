@@ -3,11 +3,11 @@ extends Node
 signal state_transition_requested(new_state: Ball.State)
 const GRAVITY = 10
 var player_dection_area : Area2D = null
-var ball : Ball = null
-var carrier : Player = null 
-var animation_player : AnimationPlayer = null	
-var sprite : Sprite2D = null
-var state_data : BallStateData = null
+var ball: Ball = null
+var carrier: Player = null 
+var animation_player: AnimationPlayer = null	
+var sprite: Sprite2D = null
+var state_data: BallStateData = null
 
 # 各个状态的依赖项
 func setup(context_ball:Ball, context_player_dection_area: Area2D, context_carrier: Player, context_animation_player: AnimationPlayer, context_sprite: Sprite2D, context_state_data: BallStateData) -> void:

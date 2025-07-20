@@ -1,13 +1,13 @@
 class_name ActorContainer
 extends Node2D
 const PLAYER_PREFAB = preload("res://Scences/characters/player.tscn")
-@export var ball : Ball
-@export var goal_home : Goal
-@export var goal_away : Goal
-@onready var sqawns : Node2D = %Spanwns
+@export var ball: Ball
+@export var goal_home: Goal
+@export var goal_away: Goal
+@onready var sqawns: Node2D = %Spanwns
 @onready var kickoffs: Node2D = %KickOffs
-var squad_home : Array[Player] = []
-var squad_away : Array[Player] = []
+var squad_home: Array[Player] = []
+var squad_away: Array[Player] = []
 var DURTION_WEIGHT_CACHE = 200
 var is_checking_for_kickoff_readiness = false
 var time_since_last_cache_refresh = Time.get_ticks_msec()
@@ -69,16 +69,17 @@ func on_player_swap_request(requester: Player) -> void:
 	var closest_cpu_to_ball: Player = cpu_players[0]
 	if closest_cpu_to_ball.position.distance_squared_to(ball.position) < requester.position.distance_squared_to(ball.position):
 		var player_control_scheme = requester.control_scheme
-		requester.set_control_scheme(Player.ControlScheme.CPU)
 		closest_cpu_to_ball.set_control_scheme(player_control_scheme)	
+		requester.set_control_scheme(Player.ControlScheme.CPU)
 
 func on_team_reset() -> void:
 	is_checking_for_kickoff_readiness = true
 
 func check_for_kickoff_readiness() -> void:
 	for squad in [squad_home, squad_away]:
-		for Player: Player in squad:
-			if not Player.is_ready_to_kickoff():
+		for player: Player in squad:
+			player.set_control_scheme(Player.ControlScheme.CPU)
+			if not player.is_ready_to_kickoff():
 				return
 	setup_control_schemes()
 	is_checking_for_kickoff_readiness = false

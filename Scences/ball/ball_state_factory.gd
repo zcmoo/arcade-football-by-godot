@@ -1,5 +1,5 @@
 class_name BallStateFactory
-var states : Dictionary
+var states: Dictionary
 
 
 func _init() -> void:

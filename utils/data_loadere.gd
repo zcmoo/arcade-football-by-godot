@@ -26,7 +26,7 @@ func _init() -> void:
 		assert(players.size() == 6)
 	json_file.close()
 
-func  get_squad(country: String) -> Array:
+func get_squad(country: String) -> Array:
 	if squads.has(country):
 		return squads[country]
 	return []	

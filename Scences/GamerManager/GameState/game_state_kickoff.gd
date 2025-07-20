@@ -2,6 +2,7 @@ class_name GameStateKickoff
 extends GameState
 var valid_control_schemes = []
 
+
 func _enter_tree() -> void:
 	var country_starting = state_data.country_scored_on
 	if country_starting.is_empty():

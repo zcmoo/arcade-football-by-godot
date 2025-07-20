@@ -44,7 +44,7 @@ func has_opponent_nearby() -> bool:
 	for player_body in players:
 		if player_body is Player and player_body.country != player.country:
 			opponent_count += 1
-	return opponent_count >= 2
+	return opponent_count >= 3
 
 func has_teammate_in_view() -> bool:
 	var players_in_view = teammate_detection_area.get_overlapping_bodies()
@@ -53,4 +53,4 @@ func has_teammate_in_view() -> bool:
 	for player_body in players_in_view:
 		if player_body is Player and player_body != player and player_body.role != Player.Role.GOALE and player_body.country == player.country:
 			teammate_count += 1
-	return teammate_count >= 1 
+	return teammate_count > 0 and teammate_count <= 2

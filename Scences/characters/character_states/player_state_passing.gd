@@ -23,3 +23,6 @@ func find_team_in_view() -> Player:
 	if teammates_in_view.size() > 0:
 		return teammates_in_view[0]
 	return null
+
+func can_carry_ball() -> bool:
+	return true 

@@ -1,6 +1,7 @@
 class_name GameStateInplay
 extends GameState
 
+
 func _enter_tree() -> void:
 	GameEvents.team_scored.connect(on_team_scored.bind())
 

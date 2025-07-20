@@ -19,5 +19,8 @@ func _process(delta: float) -> void:
 	elif Time.get_ticks_msec() - time_finish_tackle > DURATION_PRIOR_RECOVERY:
 		transition_state(Player.State.RECOVERING)
 
+func can_carry_ball() -> bool:
+	return true 
+
 func _exit_tree() -> void:
 	tackle_damage_emitter_area.monitoring = false

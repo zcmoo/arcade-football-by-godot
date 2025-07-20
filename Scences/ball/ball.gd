@@ -15,11 +15,11 @@ const DURATION_TUMBLE_LOCK = 200
 const DURATION_PASS_LOCK = 500
 const KICKOFF_PASS_DISTANCE = 30
 @onready var player_detection_area : Area2D = %PlayerDetectionArea
-@onready var animation_player : AnimationPlayer = %AnimationPlayer
-@onready var raycast : RayCast2D = %RayCast2D
-@onready var ball_sprite : Sprite2D = %BallSprite
-@export var friction_air : float
-@export var friction_ground : float
+@onready var animation_player: AnimationPlayer = %AnimationPlayer
+@onready var raycast: RayCast2D = %RayCast2D
+@onready var ball_sprite: Sprite2D = %BallSprite
+@export var friction_air: float
+@export var friction_ground: float
 
 
 func _ready() -> void:

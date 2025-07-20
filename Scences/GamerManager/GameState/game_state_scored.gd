@@ -7,6 +7,7 @@ var time_since_celebration = Time.get_ticks_msec()
 func _enter_tree() -> void:
 	var index_contry_scring = 1 if state_data.country_scored_on == manager.contries[0] else 0
 	manager.socre[index_contry_scring] += 1
+	GameEvents.score_changed.emit()
 	time_since_celebration = Time.get_ticks_msec()
 	print(manager.contries[index_contry_scring])
 

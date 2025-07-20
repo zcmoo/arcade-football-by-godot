@@ -14,21 +14,21 @@ enum ControlScheme {CPU, P1, P2}
 enum State {MOVING, TACKLING, RECOVERING, PREPPRING_SHOOT, SHOOTING, PASSING, HEADER, VOLLEY_KICK, BICYCLE_KICK, CHEST_CONTROL, HURT, DIVING, CELEBRATING, MOUNING, RESET}
 enum Role {GOALE, DEFNSE, MIDFIELD, OFFNSE}
 enum SkinColor {LIGHT, MEDIUM, DARK}
-@export var power : float
-@export var speed : float
-@export var control_scheme : ControlScheme
-@export var ball : Ball
-@export var own_goal : Goal
-@export var target_goal : Goal
-@onready var animation_player : AnimationPlayer = %AnimationPlayer
-@onready var player_sprite : Sprite2D = %PlayerSprite
-@onready var teammate_detection_area : Area2D = %TeammateDetctionArea
-@onready var control_sprite : Sprite2D = %ControlSprite
-@onready var ball_dection_area : Area2D = %BallDectionArea
-@onready var tackle_damage_emitter_area : Area2D = %TackleDamageEmitterArea
-@onready var opponent_detection_area : Area2D = %OpponentDetectionArea
-@onready var permanent_damage_emitter_area : Area2D = %PermanentDamageEmitter
-@onready var GoalierHands : CollisionShape2D = %GoalierHands
+@export var power: float
+@export var speed: float
+@export var control_scheme: ControlScheme
+@export var ball: Ball
+@export var own_goal: Goal
+@export var target_goal: Goal
+@onready var animation_player: AnimationPlayer = %AnimationPlayer
+@onready var player_sprite: Sprite2D = %PlayerSprite
+@onready var teammate_detection_area: Area2D = %TeammateDetctionArea
+@onready var control_sprite: Sprite2D = %ControlSprite
+@onready var ball_dection_area: Area2D = %BallDectionArea
+@onready var tackle_damage_emitter_area: Area2D = %TackleDamageEmitterArea
+@onready var opponent_detection_area: Area2D = %OpponentDetectionArea
+@onready var permanent_damage_emitter_area: Area2D = %PermanentDamageEmitter
+@onready var GoalierHands: CollisionShape2D = %GoalierHands
 var actors_container: Node2D
 var country = ""
 var current_state : PlayerState = null 
@@ -46,7 +46,6 @@ var kickoff_position = Vector2.ZERO
 var weight_on_duty_steering = 0.0
 
 
-# 初始化
 func _ready() -> void:
 	actors_container = get_tree().get_root().get_node("World/ActorsContainer")
 	set_control_texture()
@@ -100,6 +99,7 @@ func flip_sprite() -> void:
 		player_sprite.flip_h = true
 		tackle_damage_emitter_area.scale.x = -1
 		opponent_detection_area.scale.x = -1
+
 func has_ball() -> bool:
 	if ball:
 		return ball.carrier == self

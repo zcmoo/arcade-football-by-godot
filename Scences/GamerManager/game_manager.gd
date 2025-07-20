@@ -2,7 +2,7 @@ extends Node
 enum State {IN_PLAY, SCORED, RESET, KICKOFF, OVERTIME, GAMEROVER}
 const DRATION_GAME_SEC = 2 * 60
 var time_left = 0.0
-var contries: Array[String] = ["CHINA", "USA"]
+var contries: Array[String] = ["FRANCE", "CHINA"]
 var player_setup: Array[String] = ["CHINA", ""]
 var socre: Array[int] = [0, 0]
 var state_factory = GameStateFactory.new()
