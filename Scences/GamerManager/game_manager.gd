@@ -2,7 +2,7 @@ extends Node
 enum State {IN_PLAY, SCORED, RESET, KICKOFF, OVERTIME, GAMEROVER}
 const DRATION_GAME_SEC = 2 * 60
 var time_left = 0.0
-var contries: Array[String] = ["FRANCE", "CHINA"]
+var contries: Array[String] = ["CHINA", "FRANCE"]
 var player_setup: Array[String] = ["CHINA", ""]
 var socre: Array[int] = [0, 0]
 var state_factory = GameStateFactory.new()
@@ -27,3 +27,15 @@ func is_coop() -> bool:
 
 func is_single_player() -> bool:
 	return player_setup[1].is_empty()
+
+func is_game_tied() -> bool:
+	return socre[0] == socre[1]
+
+func get_winner_country() -> String:
+	assert(not is_game_tied())
+	return contries[0] if socre[0] > socre[1] else contries[1]
+
+func increase_score(country_scored_on: String) -> void:
+	var index_contry_scring = 1 if country_scored_on == contries[0] else 0
+	socre[index_contry_scring] += 1
+	GameEvents.score_changed.emit()

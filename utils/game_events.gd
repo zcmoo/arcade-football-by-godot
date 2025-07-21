@@ -6,3 +6,4 @@ signal kickoff_start
 signal ball_possessed(player_name: String)
 signal ball_released
 signal score_changed
+signal game_over(country_winner: String)

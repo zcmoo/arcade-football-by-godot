@@ -55,6 +55,7 @@ func _ready() -> void:
 	GoalierHands.disabled = role != self.Role.GOALE
 	tackle_damage_emitter_area.body_entered.connect(on_tackle_player.bind())
 	permanent_damage_emitter_area.body_entered.connect(on_tackle_player.bind())
+	GameEvents.game_over.connect(on_game_over.bind())
 	GameEvents.team_scored.connect(on_team_scored.bind())
 	spawn_position = position
 	var initial_position = kickoff_position if country == GameManager.contries[0] else spawn_position
@@ -187,3 +188,9 @@ func face_towards_target_goal() -> void:
 func set_control_scheme(scheme: ControlScheme) -> void:
 	control_scheme = scheme
 	set_control_texture()
+
+func on_game_over(winner_team: String) -> void:
+	if country == winner_team:
+		switch_state(Player.State.CELEBRATING)
+	else:
+		switch_state(Player.State.MOUNING)
