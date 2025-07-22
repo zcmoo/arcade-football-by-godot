@@ -29,6 +29,8 @@ enum SkinColor {LIGHT, MEDIUM, DARK}
 @onready var opponent_detection_area: Area2D = %OpponentDetectionArea
 @onready var permanent_damage_emitter_area: Area2D = %PermanentDamageEmitter
 @onready var GoalierHands: CollisionShape2D = %GoalierHands
+@onready var run_particle: GPUParticles2D = %RunParticles
+@onready var root_particle:  Node2D = %RootParticles
 var actors_container: Node2D
 var country = ""
 var current_state : PlayerState = null 
@@ -51,6 +53,7 @@ func _ready() -> void:
 	set_control_texture()
 	setup_ai_behavior()
 	set_shader_properties()
+	run_particle.emitting = false
 	permanent_damage_emitter_area.monitoring = role == self.Role.GOALE
 	GoalierHands.disabled = role != self.Role.GOALE
 	tackle_damage_emitter_area.body_entered.connect(on_tackle_player.bind())
@@ -96,10 +99,12 @@ func flip_sprite() -> void:
 		player_sprite.flip_h = false
 		tackle_damage_emitter_area.scale.x = 1
 		opponent_detection_area.scale.x = 1
+		root_particle.scale.x = 1
 	elif heading == Vector2.LEFT:
 		player_sprite.flip_h = true
 		tackle_damage_emitter_area.scale.x = -1
 		opponent_detection_area.scale.x = -1
+		root_particle.scale.x = -1
 
 func has_ball() -> bool:
 	if ball:
@@ -118,7 +123,8 @@ func set_control_texture() -> void:
 
 func set_sprite_visiblity() -> void:
 	control_sprite.visible = has_ball() or not control_scheme == ControlScheme.CPU
-
+	run_particle.emitting = (velocity.length() == speed)
+	
 func process_gravity(delta: float) -> void:
 	if height > 0 or height_velocity > 0:
 		height_velocity -= GRAVITY * delta

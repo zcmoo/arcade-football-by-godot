@@ -18,6 +18,8 @@ const KICKOFF_PASS_DISTANCE = 30
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
 @onready var raycast: RayCast2D = %RayCast2D
 @onready var ball_sprite: Sprite2D = %BallSprite
+@onready var shot_particles: GPUParticles2D = %ShotParticles
+@onready var player_promixity_area: Area2D = %PlayerProximityArea
 @export var friction_air: float
 @export var friction_ground: float
 
@@ -25,6 +27,7 @@ const KICKOFF_PASS_DISTANCE = 30
 func _ready() -> void:
 	switch_state(State.FREEFORM) # 初始化状态节点
 	spawn_postion = position
+	shot_particles.emitting = false
 	GameEvents.team_reset.connect(on_team_reset.bind())
 	GameEvents.kickoff_start.connect(on_kickoff_start.bind())
 
@@ -40,7 +43,7 @@ func switch_state(state: Ball.State, data: BallStateData = BallStateData.new()) 
 	if current_state != null:
 		current_state.queue_free()
 	current_state = state_factory.get_fresh_state(state)	
-	current_state.setup(self, player_detection_area, carrier, animation_player, ball_sprite, data) #状态子节点所需依赖项(球的属性，播放器等)
+	current_state.setup(self, player_detection_area, carrier, animation_player, ball_sprite, data, shot_particles) #状态子节点所需依赖项(球的属性，播放器等)
 	current_state.state_transition_requested.connect(switch_state.bind()) # 监听器
 	current_state.name = "BallStateMachine" + str(state) # 可视化
 	call_deferred("add_child", current_state) # 将现在的状态子节点添加到父节点中
@@ -87,3 +90,7 @@ func on_team_reset() -> void:
 
 func on_kickoff_start() -> void:
 	pass_to(spawn_postion + Vector2.DOWN * KICKOFF_PASS_DISTANCE, 0)
+
+func get_promixity_teammates_count(country: String) -> int:
+	var players = player_promixity_area.get_overlapping_bodies()
+	return players.filter(func(p: Player): return p.country == country).size()

@@ -1,6 +1,7 @@
 class_name ActorContainer
 extends Node2D
 const PLAYER_PREFAB = preload("res://Scences/characters/player.tscn")
+const SPARK_PREFAB = preload("res://Scences/spark/sprite_2d.tscn")
 @export var ball: Ball
 @export var goal_home: Goal
 @export var goal_away: Goal
@@ -15,6 +16,7 @@ var time_since_last_cache_refresh = Time.get_ticks_msec()
 
 func _init() -> void:
 	GameEvents.team_reset.connect(on_team_reset.bind())
+	GameEvents.impact_receive.connect(on_impact_receive.bind())
 
 func _ready() -> void:
 	squad_home = sqawn_players(GameManager.contries[0], goal_home)
@@ -99,3 +101,8 @@ func setup_control_schemes() -> void:
 		var p2_squad = squad_home if p1_squad == squad_away else squad_away
 		p1_squad[5].set_control_scheme(Player.ControlScheme.P1)
 		p2_squad[5].set_control_scheme(Player.ControlScheme.P2)
+
+func on_impact_receive(impact_position: Vector2, _is_high_impact: bool) -> void:
+	var spark = SPARK_PREFAB.instantiate()
+	spark.position = impact_position
+	add_child(spark)
