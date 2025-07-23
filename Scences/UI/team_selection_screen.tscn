@@ -1,0 +1,42 @@
+[gd_scene load_steps=4 format=3 uid="uid://bc5tv6tpmuq8g"]
+
+[ext_resource type="Texture2D" uid="uid://lymy1vbj8vas" path="res://assets/art/ui/teamselection/team-selection-background.png" id="1_ojaqx"]
+[ext_resource type="Script" uid="uid://dmiqavnfjjk38" path="res://Scences/UI/team_selection_screen.gd" id="1_q1aqu"]
+[ext_resource type="Texture2D" uid="uid://dgvg01qfyjhg3" path="res://assets/art/ui/teamselection/select-team-label.png" id="2_tkock"]
+
+[node name="TeamSelectionScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_q1aqu")
+
+[node name="BackGround" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_ojaqx")
+
+[node name="TeamSelectTextureRect" type="TextureRect" parent="BackGround"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -106.0
+offset_top = 20.0
+offset_right = 106.0
+offset_bottom = 49.0
+grow_horizontal = 2
+texture = ExtResource("2_tkock")
+stretch_mode = 2
+
+[node name="FlagContainer" type="Control" parent="BackGround"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

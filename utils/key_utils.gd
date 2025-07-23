@@ -1,5 +1,5 @@
 class_name KeyUtils
-enum Action {LEFT, RIGHT, UP, DOWN, SHOOT, PASS}
+enum Action {LEFT, RIGHT, UP, DOWN, SHOOT, PASS, SELECT}
 const ACTIONS_MAP : Dictionary = {
 	Player.ControlScheme.P1 : {
 		Action.LEFT: "p1_left",
@@ -8,6 +8,7 @@ const ACTIONS_MAP : Dictionary = {
 		Action.DOWN: "p1_down", 
 		Action.SHOOT: "p1_shoot", 
 		Action.PASS: "p1_pass", 
+		Action.SELECT: "确定"
 	},
 	Player.ControlScheme.P2 : {
 		Action.LEFT: "p2_left",

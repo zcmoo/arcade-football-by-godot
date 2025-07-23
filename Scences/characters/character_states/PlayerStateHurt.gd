@@ -13,6 +13,7 @@ func _enter_tree() -> void:
 	player.height_velocity = HURT_HIGHT_VOLOCITY
 	if ball.carrier == player:
 		ball.tumble(state_data.hurt_direction * BALL_TUMBLE_SPEED)
+		SoundPlayer.play(SoundPlayer.Sound.HURT)
 		GameEvents.impact_receive.emit(player.position, false)
 
 func _process(delta: float) -> void:

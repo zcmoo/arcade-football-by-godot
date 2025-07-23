@@ -3,8 +3,8 @@ enum State {IN_PLAY, SCORED, RESET, KICKOFF, OVERTIME, GAMEROVER}
 const DRATION_GAME_SEC = 2 * 60
 const DURATION_IMPACT_PAUSE = 100
 var time_left = 0.0
-var contries: Array[String] = ["CHINA", "FRANCE"]
-var player_setup: Array[String] = ["CHINA", ""]
+var contries: Array[String] = ["CHINA", "USA"]
+var player_setup: Array[String] = ["CHINA", "CHINA"]
 var socre: Array[int] = [0, 0]
 var state_factory = GameStateFactory.new()
 var current_state: GameState = null

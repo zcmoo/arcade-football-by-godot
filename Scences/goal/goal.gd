@@ -19,6 +19,7 @@ func initialize(context_country: String) -> void:
 	country = context_country
 
 func on_ball_enter_scoring_area(ball: Ball) -> void:
+	SoundPlayer.play(SoundPlayer.Sound.WHISTLE)
 	GameEvents.team_scored.emit(country)
 
 func get_random_target_position() -> Vector2:

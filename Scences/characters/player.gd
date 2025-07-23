@@ -6,7 +6,6 @@ const CONTROL_SCHEME_MAP : Dictionary = {
 	ControlScheme.P1 : preload("res://assets/art/props/1p.png"),
 	ControlScheme.P2 : preload("res://assets/art/props/2p.png")
 }
-const CONTRIES = ["DEFAULT", "FRANCE", "ARGENTINA", "BRAZIL", "CHINA", "GERMANY", "ITALY", "SPAIN", "USA"]
 const GRAVITY = 8.0
 const BALL_CONTROL_HEIGHT_MAX = 10
 const WALK_ANIM_THRESHDLD = 0.6
@@ -153,8 +152,9 @@ func initialize(context_player_position: Vector2, context_ball: Ball, context_ow
 
 func set_shader_properties() -> void:
 	player_sprite.material.set_shader_parameter("skin_color", skin_color)
-	var country_color = CONTRIES.find(country)
-	country_color = clamp(country_color, 0 , CONTRIES.size() - 1)
+	var countries = DataLoadere.get_countries()
+	var country_color = countries.find(country)
+	country_color = clamp(country_color, 0 , countries.size() - 1)
 	player_sprite.material.set_shader_parameter("team_color", country_color)
 
 func setup_ai_behavior() -> void:
