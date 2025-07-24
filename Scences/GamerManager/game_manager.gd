@@ -3,9 +3,8 @@ enum State {IN_PLAY, SCORED, RESET, KICKOFF, OVERTIME, GAMEROVER}
 const DRATION_GAME_SEC = 2 * 60
 const DURATION_IMPACT_PAUSE = 100
 var time_left = 0.0
-var contries: Array[String] = ["", ""]
+var current_match: Match = null
 var player_setup: Array[String] = ["", ""]
-var socre: Array[int] = [0, 0]
 var state_factory = GameStateFactory.new()
 var current_state: GameState = null
 var time_since_pause = Time.get_ticks_msec()
@@ -40,16 +39,12 @@ func is_coop() -> bool:
 func is_single_player() -> bool:
 	return player_setup[1].is_empty()
 
-func is_game_tied() -> bool:
-	return socre[0] == socre[1]
-
 func get_winner_country() -> String:
-	assert(not is_game_tied())
-	return contries[0] if socre[0] > socre[1] else contries[1]
+	assert(not current_match.is_tied())
+	return current_match.winner
 
 func increase_score(country_scored_on: String) -> void:
-	var index_contry_scring = 1 if country_scored_on == contries[0] else 0
-	socre[index_contry_scring] += 1
+	current_match.increase_score(country_scored_on)
 	GameEvents.score_changed.emit()
 
 func on_impact_received(_impact_position: Vector2, is_high_impact: bool) -> void:

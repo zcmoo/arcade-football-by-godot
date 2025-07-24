@@ -30,7 +30,7 @@ enum SkinColor {LIGHT, MEDIUM, DARK}
 @onready var GoalierHands: CollisionShape2D = %GoalierHands
 @onready var run_particle: GPUParticles2D = %RunParticles
 @onready var root_particle: Node2D = %RootParticles
-@onready var actors_container: Node2D = $ActorsContainer
+@onready var actors_container: Node2D = %ActorsContainer
 var country = ""
 var current_state : PlayerState = null 
 var state_factory := PlayerStateFactory.new()
@@ -59,7 +59,7 @@ func _ready() -> void:
 	GameEvents.game_over.connect(on_game_over.bind())
 	GameEvents.team_scored.connect(on_team_scored.bind())
 	spawn_position = position
-	var initial_position = kickoff_position if country == GameManager.contries[0] else spawn_position
+	var initial_position = kickoff_position if country == GameManager.current_match.country_home else spawn_position
 	switch_state(State.RESET, PlayerStateData.build().set_reset_position(initial_position))
 
 func _process(delta: float) -> void:

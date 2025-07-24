@@ -19,12 +19,12 @@ func _init() -> void:
 	GameEvents.impact_receive.connect(on_impact_receive.bind())
 
 func _ready() -> void:
-	squad_home = sqawn_players(GameManager.contries[0], goal_home)
-	goal_home.initialize(GameManager.contries[0])
+	squad_home = sqawn_players(GameManager.current_match.country_home, goal_home)
+	goal_home.initialize(GameManager.current_match.country_home)
 	sqawns.scale.x = -1
 	kickoffs.scale.x = -1
-	squad_away = sqawn_players(GameManager.contries[1], goal_away)
-	goal_away.initialize(GameManager.contries[1])
+	squad_away = sqawn_players(GameManager.current_match.country_away, goal_away)
+	goal_away.initialize(GameManager.current_match.country_away)
 	var player1 : Player = get_children().filter(func(p): return p is Player)[3]
 	setup_control_schemes()
 

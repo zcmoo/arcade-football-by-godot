@@ -25,11 +25,12 @@ func _process(delta: float) -> void:
 	update_clock()
 
 func update_score() -> void:
-	score_lable.text = SocreHelper.get_score_text(GameManager.socre)
+	score_lable.text = SocreHelper.get_score_text(GameManager.current_match)
 
 func update_flag() -> void:
 	for i in flag_texture.size():
-		flag_texture[i].texture = FlagHeleper.get_texture(GameManager.contries[i])
+		var countries = [GameManager.current_match.country_home, GameManager.current_match.country_away]
+		flag_texture[i].texture = FlagHeleper.get_texture(countries[i])
 
 func update_clock() -> void:
 	if GameManager.time_left < 0:
@@ -46,7 +47,7 @@ func on_ball_released() -> void:
 func on_score_changed() -> void:
 	if GameManager.time_left > 0:
 		goal_score_lable.text = "%s SCORED!" % [last_ball_carried]
-		score_info_lable.text = SocreHelper.get_current_info(GameManager.contries, GameManager.socre)
+		score_info_lable.text = SocreHelper.get_current_info(GameManager.current_match)
 		animation_player.play("goal_appear")
 	update_score()
 
@@ -54,5 +55,5 @@ func on_team_reset() -> void:
 	animation_player.play("goal_hide")
 
 func on_game_over(_country_winner: String) -> void:
-	score_info_lable.text = SocreHelper.get_finnal_score_info(GameManager.contries, GameManager.socre)
+	score_info_lable.text = SocreHelper.get_finnal_score_info(GameManager.current_match)
 	animation_player.play("gameover")

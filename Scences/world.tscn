@@ -48,6 +48,7 @@ texture = ExtResource("3_y6ldt")
 centered = false
 
 [node name="ActorsContainer" type="Node2D" parent="." node_paths=PackedStringArray("ball", "goal_home", "goal_away")]
+unique_name_in_owner = true
 y_sort_enabled = true
 script = ExtResource("5_npiv4")
 ball = NodePath("Ball")
