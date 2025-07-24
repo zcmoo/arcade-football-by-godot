@@ -1,0 +1,37 @@
+[gd_scene load_steps=4 format=3 uid="uid://63a3or0btbdw"]
+
+[ext_resource type="Texture2D" uid="uid://o53sbiq8m6w6" path="res://assets/art/ui/flags/flag-placeholder.png" id="1_g8vt7"]
+[ext_resource type="Script" uid="uid://d0snj4kv711y8" path="res://Scences/UI/texture_rect.gd" id="2_ppbgo"]
+[ext_resource type="Texture2D" uid="uid://cxr7mau7basoa" path="res://assets/art/ui/flags/flag-selection.png" id="2_uj15i"]
+
+[node name="BacketFlag" type="TextureRect"]
+custom_minimum_size = Vector2(44, 28)
+offset_right = 22.0
+offset_bottom = 14.0
+texture = ExtResource("1_g8vt7")
+script = ExtResource("2_ppbgo")
+
+[node name="ScoreLabel" type="Label" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 7
+text = "5 - 3"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Border" type="TextureRect" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+offset_left = -2.0
+offset_top = -2.0
+offset_right = 46.0
+offset_bottom = 30.0
+texture = ExtResource("2_uj15i")

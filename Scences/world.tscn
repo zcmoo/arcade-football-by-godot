@@ -1,5 +1,6 @@
-[gd_scene load_steps=13 format=3 uid="uid://d1xcy22vbn0v1"]
+[gd_scene load_steps=14 format=3 uid="uid://d1xcy22vbn0v1"]
 
+[ext_resource type="Script" uid="uid://3yijlvxaq1a5" path="res://Scences/world.gd" id="1_apemh"]
 [ext_resource type="Texture2D" uid="uid://cwrem4d316qp6" path="res://assets/art/backgrounds/pitch-background.png" id="1_of7y3"]
 [ext_resource type="Script" uid="uid://eh05r7bh17c4" path="res://Scences/camera_2d.gd" id="1_qk82f"]
 [ext_resource type="Texture2D" uid="uid://vhccv168m2ih" path="res://assets/art/backgrounds/pitch-pattern.png" id="2_7vbm1"]
@@ -15,7 +16,8 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x5ytc"]
 size = Vector2(800, 12)
 
-[node name="World" type="Node2D"]
+[node name="World" type="Node"]
+script = ExtResource("1_apemh")
 
 [node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("ball")]
 unique_name_in_owner = true

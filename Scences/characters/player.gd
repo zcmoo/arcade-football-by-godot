@@ -29,8 +29,8 @@ enum SkinColor {LIGHT, MEDIUM, DARK}
 @onready var permanent_damage_emitter_area: Area2D = %PermanentDamageEmitter
 @onready var GoalierHands: CollisionShape2D = %GoalierHands
 @onready var run_particle: GPUParticles2D = %RunParticles
-@onready var root_particle:  Node2D = %RootParticles
-var actors_container: Node2D
+@onready var root_particle: Node2D = %RootParticles
+@onready var actors_container: Node2D = $ActorsContainer
 var country = ""
 var current_state : PlayerState = null 
 var state_factory := PlayerStateFactory.new()
@@ -48,7 +48,6 @@ var weight_on_duty_steering = 0.0
 
 
 func _ready() -> void:
-	actors_container = get_tree().get_root().get_node("World/ActorsContainer")
 	set_control_texture()
 	setup_ai_behavior()
 	set_shader_properties()
@@ -75,7 +74,7 @@ func switch_state(state: State, state_data: PlayerStateData = PlayerStateData.ne
 	current_state = state_factory.get_fresh_state(state) # 实例化当前状态
 	current_state.setup(self, state_data, animation_player, ball, teammate_detection_area, ball_dection_area, own_goal, target_goal, current_ai_behavior, tackle_damage_emitter_area, actors_container) # 为当前玩家状态子节点安装必要组件依赖
 	current_state.state_transition_requested.connect(switch_state.bind()) # 递归切换下一个状态
-	current_state.name = "PlayerStateMachine" + str(state) # 可视化子节点名字
+	current_state.name = "PlayerStateMachine" + str(state) # 可视化状态
 	call_deferred("add_child", current_state) # 将现在的状态子节点添加到父节点中
 
 func set_movement_animation() -> void:

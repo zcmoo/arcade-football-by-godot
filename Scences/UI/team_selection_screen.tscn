@@ -4,17 +4,10 @@
 [ext_resource type="Script" uid="uid://dmiqavnfjjk38" path="res://Scences/UI/team_selection_screen.gd" id="1_q1aqu"]
 [ext_resource type="Texture2D" uid="uid://dgvg01qfyjhg3" path="res://assets/art/ui/teamselection/select-team-label.png" id="2_tkock"]
 
-[node name="TeamSelectionScreen" type="Control"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="TeamSelectionScreen" type="Node"]
 script = ExtResource("1_q1aqu")
 
 [node name="BackGround" type="TextureRect" parent="."]
-layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("1_ojaqx")

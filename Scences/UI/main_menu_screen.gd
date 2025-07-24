@@ -1,5 +1,5 @@
 class_name MainMenuScreen
-extends Control
+extends Screen
 const MENU_TEXTURE = [
 	[preload("res://assets/art/ui/mainmenu/1-player.png"),preload("res://assets/art/ui/mainmenu/1-player-selected.png")],
 	[preload("res://assets/art/ui/mainmenu/2-players.png"),preload("res://assets/art/ui/mainmenu/2-players-selected.png")],
@@ -9,10 +9,10 @@ const MENU_TEXTURE = [
 var current_selection_index = 0
 var is_active = false
 
-func	 _ready() -> void:
+func _ready() -> void:
 	refresh_ui()
 
-func	 _process(delta: float) -> void:
+func _process(delta: float) -> void:
 	if is_active:
 		if KeyUtils.is_action_just_pressed(Player.ControlScheme.P1, KeyUtils.Action.UP):
 			change_selected_index(current_selection_index - 1)
@@ -39,6 +39,7 @@ func submit_selection() -> void:
 	var country_default = DataLoadere.get_countries()[4]
 	var player_two = "" if current_selection_index == 0 else country_default
 	GameManager.player_setup = [country_default, player_two]
+	transition_screen(SoccerGame.SceenType.TEAM_SELECTION)
 
 func on_set_active() -> void:
 	refresh_ui()

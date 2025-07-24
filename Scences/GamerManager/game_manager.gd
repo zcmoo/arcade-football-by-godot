@@ -3,8 +3,8 @@ enum State {IN_PLAY, SCORED, RESET, KICKOFF, OVERTIME, GAMEROVER}
 const DRATION_GAME_SEC = 2 * 60
 const DURATION_IMPACT_PAUSE = 100
 var time_left = 0.0
-var contries: Array[String] = ["CHINA", "USA"]
-var player_setup: Array[String] = ["CHINA", "CHINA"]
+var contries: Array[String] = ["", ""]
+var player_setup: Array[String] = ["", ""]
 var socre: Array[int] = [0, 0]
 var state_factory = GameStateFactory.new()
 var current_state: GameState = null
@@ -17,6 +17,8 @@ func _init() -> void:
 func _ready() -> void:
 	time_left = DRATION_GAME_SEC
 	GameEvents.impact_receive.connect(on_impact_received.bind())
+
+func start_game() -> void:
 	switch_state(State.RESET)
 
 func _process(delta: float) -> void:

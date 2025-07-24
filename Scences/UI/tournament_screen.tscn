@@ -1,0 +1,228 @@
+[gd_scene load_steps=8 format=3 uid="uid://dva4grwno6m67"]
+
+[ext_resource type="Script" uid="uid://bcavnblv284e3" path="res://Scences/UI/tournament_screen.gd" id="1_u64ht"]
+[ext_resource type="Texture2D" uid="uid://5fm1r0fda0m6" path="res://assets/art/ui/teamselection/tournament-screen.png" id="2_6yjka"]
+[ext_resource type="PackedScene" uid="uid://63a3or0btbdw" path="res://Scences/UI/texture_rect.tscn" id="3_g5gi0"]
+[ext_resource type="Texture2D" uid="uid://ungitdb4k2s5" path="res://assets/art/ui/flags/flag-vseparator.png" id="4_5kmqu"]
+[ext_resource type="Texture2D" uid="uid://wy1sjw6yei37" path="res://assets/art/ui/flags/flag-hseparator.png" id="5_3fn71"]
+[ext_resource type="Texture2D" uid="uid://cqk8c4w7yy8ou" path="res://assets/art/ui/teamselection/worldcup-label.png" id="6_kj7u1"]
+[ext_resource type="Texture2D" uid="uid://dl00brar07j4k" path="res://assets/art/ui/teamselection/quarters-label.png" id="7_g3gb3"]
+
+[node name="TournamentScreen" type="Node"]
+script = ExtResource("1_u64ht")
+
+[node name="BackGound" type="TextureRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_6yjka")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BackGound"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 10.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BackGound/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="BacketFlag" parent="BackGound/HBoxContainer/VBoxContainer" instance=ExtResource("3_g5gi0")]
+layout_mode = 2
+
+[node name="VLink" type="TextureRect" parent="BackGound/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("4_5kmqu")
+
+[node name="BacketFlag2" parent="BackGound/HBoxContainer/VBoxContainer" instance=ExtResource("3_g5gi0")]
+layout_mode = 2
+
+[node name="V-Pandding" type="Control" parent="BackGound/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+
+[node name="BacketFlag3" parent="BackGound/HBoxContainer/VBoxContainer" instance=ExtResource("3_g5gi0")]
+layout_mode = 2
+
+[node name="VLink2" type="TextureRect" parent="BackGound/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("4_5kmqu")
+
+[node name="BacketFlag4" parent="BackGound/HBoxContainer/VBoxContainer" instance=ExtResource("3_g5gi0")]
+layout_mode = 2
+
+[node name="HPadding" type="Control" parent="BackGound/HBoxContainer"]
+custom_minimum_size = Vector2(2, 0)
+layout_mode = 2
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="BackGound/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="BacketFlag" parent="BackGound/HBoxContainer/VBoxContainer3" instance=ExtResource("3_g5gi0")]
+layout_mode = 2
+
+[node name="VLink" type="TextureRect" parent="BackGound/HBoxContainer/VBoxContainer3"]
+layout_mode = 2
+texture = ExtResource("4_5kmqu")
+
+[node name="BacketFlag2" parent="BackGound/HBoxContainer/VBoxContainer3" instance=ExtResource("3_g5gi0")]
+layout_mode = 2
+
+[node name="HPadding2" type="Control" parent="BackGound/HBoxContainer"]
+custom_minimum_size = Vector2(2, 0)
+layout_mode = 2
+
+[node name="VBoxContainer5" type="VBoxContainer" parent="BackGound/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="BacketFlag" parent="BackGound/HBoxContainer/VBoxContainer5" instance=ExtResource("3_g5gi0")]
+layout_mode = 2
+
+[node name="VBoxContainer6" type="VBoxContainer" parent="BackGound/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="BackGound/HBoxContainer/VBoxContainer6"]
+custom_minimum_size = Vector2(5, 0)
+layout_mode = 2
+texture = ExtResource("5_3fn71")
+
+[node name="VBoxContainer7" type="VBoxContainer" parent="BackGound/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="BacketFlag" parent="BackGound/HBoxContainer/VBoxContainer7" instance=ExtResource("3_g5gi0")]
+layout_mode = 2
+
+[node name="HPadding3" type="Control" parent="BackGound/HBoxContainer"]
+custom_minimum_size = Vector2(2, 0)
+layout_mode = 2
+
+[node name="VBoxContainer4" type="VBoxContainer" parent="BackGound/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="BacketFlag" parent="BackGound/HBoxContainer/VBoxContainer4" instance=ExtResource("3_g5gi0")]
+layout_mode = 2
+
+[node name="VLink" type="TextureRect" parent="BackGound/HBoxContainer/VBoxContainer4"]
+layout_mode = 2
+texture = ExtResource("4_5kmqu")
+
+[node name="BacketFlag2" parent="BackGound/HBoxContainer/VBoxContainer4" instance=ExtResource("3_g5gi0")]
+layout_mode = 2
+
+[node name="HPadding4" type="Control" parent="BackGound/HBoxContainer"]
+custom_minimum_size = Vector2(2, 0)
+layout_mode = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="BackGound/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="BacketFlag" parent="BackGound/HBoxContainer/VBoxContainer2" instance=ExtResource("3_g5gi0")]
+layout_mode = 2
+
+[node name="VLink" type="TextureRect" parent="BackGound/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+texture = ExtResource("4_5kmqu")
+
+[node name="BacketFlag2" parent="BackGound/HBoxContainer/VBoxContainer2" instance=ExtResource("3_g5gi0")]
+layout_mode = 2
+
+[node name="V-Pandding" type="Control" parent="BackGound/HBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+
+[node name="BacketFlag3" parent="BackGound/HBoxContainer/VBoxContainer2" instance=ExtResource("3_g5gi0")]
+layout_mode = 2
+
+[node name="VLink2" type="TextureRect" parent="BackGound/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+texture = ExtResource("4_5kmqu")
+
+[node name="BacketFlag4" parent="BackGound/HBoxContainer/VBoxContainer2" instance=ExtResource("3_g5gi0")]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="BackGound"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -60.0
+offset_top = -14.0
+offset_right = 60.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/outline_size = 5
+text = "PRESS ANY KEY TO CONTINUE..."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="BackGound"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -90.0
+offset_top = 4.0
+offset_right = 90.0
+offset_bottom = 33.0
+grow_horizontal = 2
+texture = ExtResource("6_kj7u1")
+
+[node name="StageTexture" type="TextureRect" parent="BackGound"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -69.0
+offset_top = 35.0
+offset_right = 69.0
+offset_bottom = 63.0
+grow_horizontal = 2
+texture = ExtResource("7_g3gb3")
+
+[node name="WinnerContainer" type="Control" parent="BackGound"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -40.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="BacketFlag" parent="BackGound/WinnerContainer" instance=ExtResource("3_g5gi0")]
+custom_minimum_size = Vector2(66, 42)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -33.0
+offset_top = -57.0
+offset_right = 33.0
+offset_bottom = -15.0
+grow_horizontal = 2
+grow_vertical = 0
