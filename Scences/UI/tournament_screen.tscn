@@ -10,6 +10,7 @@
 
 [node name="TournamentScreen" type="Node"]
 script = ExtResource("1_u64ht")
+music = 3
 
 [node name="BackGound" type="TextureRect" parent="."]
 offset_right = 40.0
@@ -29,6 +30,7 @@ theme_override_constants/separation = 0
 alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="BackGound/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 0
 alignment = 1
@@ -62,6 +64,7 @@ custom_minimum_size = Vector2(2, 0)
 layout_mode = 2
 
 [node name="VBoxContainer3" type="VBoxContainer" parent="BackGound/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 0
 alignment = 1
@@ -81,6 +84,7 @@ custom_minimum_size = Vector2(2, 0)
 layout_mode = 2
 
 [node name="VBoxContainer5" type="VBoxContainer" parent="BackGound/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 0
 alignment = 1
@@ -99,6 +103,7 @@ layout_mode = 2
 texture = ExtResource("5_3fn71")
 
 [node name="VBoxContainer7" type="VBoxContainer" parent="BackGound/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 0
 alignment = 1
@@ -111,6 +116,7 @@ custom_minimum_size = Vector2(2, 0)
 layout_mode = 2
 
 [node name="VBoxContainer4" type="VBoxContainer" parent="BackGound/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 0
 alignment = 1
@@ -130,6 +136,7 @@ custom_minimum_size = Vector2(2, 0)
 layout_mode = 2
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="BackGound/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 0
 alignment = 1
@@ -188,6 +195,7 @@ grow_horizontal = 2
 texture = ExtResource("6_kj7u1")
 
 [node name="StageTexture" type="TextureRect" parent="BackGound"]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -200,6 +208,7 @@ grow_horizontal = 2
 texture = ExtResource("7_g3gb3")
 
 [node name="WinnerContainer" type="Control" parent="BackGound"]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5

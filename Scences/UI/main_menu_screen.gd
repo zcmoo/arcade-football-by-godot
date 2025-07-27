@@ -36,11 +36,11 @@ func change_selected_index(new_index) -> void:
 
 func submit_selection() -> void:
 	SoundPlayer.play(SoundPlayer.Sound.UI_SELECT)
-	var country_default = DataLoadere.get_countries()[4]
+	var country_default = DataLoadere.get_countries()[1]
 	var player_two = "" if current_selection_index == 0 else country_default
 	GameManager.player_setup = [country_default, player_two]
 	transition_screen(SoccerGame.SceenType.TEAM_SELECTION)
 
 func on_set_active() -> void:
 	refresh_ui()
-	is_active = true	
+	is_active = true

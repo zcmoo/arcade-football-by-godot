@@ -21,6 +21,7 @@ DataLoadere="*res://utils/data_loadere.gd"
 GameEvents="*res://utils/game_events.gd"
 GameManager="*res://Scences/GamerManager/game_manager.gd"
 SoundPlayer="*res://Scences/audio/sound_player.gd"
+MusicPlay="*res://audio/music_play.gd"
 
 [display]
 

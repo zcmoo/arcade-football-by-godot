@@ -16,8 +16,6 @@ var selectors : Array[FlagSelector] = []
 
 
 func _ready() -> void:
-	GameManager.player_setup[0] = "FRANCE"
-	GameManager.player_setup[1] = "FRANCE"
 	place_flags()
 	place_selectors()
 
@@ -75,3 +73,5 @@ func on_selector_selected() -> void:
 	if not country_p2.is_empty() and country_p1 != country_p2:
 		GameManager.current_match = Match.new(country_p2, country_p1)
 		transition_screen(SoccerGame.SceenType.IN_GAME)
+	else:
+		transition_screen(SoccerGame.SceenType.TOURNAMENT, ScreenData.build().set_tournament(Tournament.new()))

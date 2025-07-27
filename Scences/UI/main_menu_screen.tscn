@@ -246,6 +246,7 @@ _data = {
 
 [node name="MainMenuScreen" type="Node"]
 script = ExtResource("1_ypndh")
+music = 2
 
 [node name="BackGround" type="TextureRect" parent="."]
 offset_right = 40.0

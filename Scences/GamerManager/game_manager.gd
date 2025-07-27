@@ -14,10 +14,10 @@ func _init() -> void:
 	process_mode = ProcessMode.PROCESS_MODE_ALWAYS 
 
 func _ready() -> void:
-	time_left = DRATION_GAME_SEC
 	GameEvents.impact_receive.connect(on_impact_received.bind())
 
 func start_game() -> void:
+	time_left = DRATION_GAME_SEC
 	switch_state(State.RESET)
 
 func _process(delta: float) -> void:
