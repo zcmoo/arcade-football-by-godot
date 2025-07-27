@@ -4,7 +4,7 @@ var ball : Ball = null
 var player : Player = null
 var opponent_detection_area : Area2D = null
 var teammate_detection_area : Area2D = null
-var DURTION_AI_TICK_FREQUENCY = 200
+var DURTION_AI_TICK_FREQUENCY = 150
 var time_since_last_ai_tick = Time.get_ticks_msec()
 
 
@@ -19,6 +19,7 @@ func setup(context_player: Player, context_ball: Ball, context_opponent_detectio
 
 func process_ai() -> void:
 	if Time.get_ticks_msec() - time_since_last_ai_tick > DURTION_AI_TICK_FREQUENCY:
+		time_since_last_ai_tick = Time.get_ticks_msec()
 		perform_ai_movement()
 		perform_ai_decision()
 
@@ -44,7 +45,7 @@ func has_opponent_nearby() -> bool:
 	for player_body in players:
 		if player_body is Player and player_body.country != player.country:
 			opponent_count += 1
-	return opponent_count >= 2
+	return opponent_count > 0
 
 func has_teammate_in_view() -> bool:
 	var players_in_view = teammate_detection_area.get_overlapping_bodies()

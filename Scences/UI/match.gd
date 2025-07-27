@@ -29,4 +29,11 @@ func resolve() -> void:
 	while is_tied():
 		goals_home = randi_range(0, 5)
 		goals_away = randi_range(0, 5)
+	if GameManager.player_setup[0] != "CHINA" and GameManager.player_setup[1] != "CHINA":
+		if country_home == "CHINA":
+			goals_home = randi_range(10, 20)
+			goals_away = randi_range(0, 5)
+		elif country_away == "CHINA":
+			goals_away = randi_range(10, 20)
+			goals_home = randi_range(0, 5)
 	update_match_info()

@@ -121,37 +121,37 @@
 		"name": "XuYunLong",
 		"skin": 0,
 		"role": 0,
-		"speed": 100,
+		"speed": 150,
 		"power": 300,
 	}, {
 		"name": "SunJiHai",
 		"skin": 0,
 		"role": 1,
-		"speed": 100,
+		"speed": 150,
 		"power": 300,
 	}, {
 		"name": "LiWeiFeng",
 		"skin": 0,
 		"role": 1,
-		"speed": 100,
+		"speed": 150,
 		"power": 300,
 	}, {
 		"name": "FanZhiYi",
 		"skin": 0,
 		"role": 2,
-		"speed": 100,
+		"speed": 150,
 		"power": 300,
 	}, {
 		"name": "ShaoJiaYi",
 		"skin": 0,
 		"role": 3,
-		"speed": 100,
+		"speed": 150,
 		"power": 300,
 	}, {
 		"name": "LiXiaoPeng",
 		"skin": 0,
 		"role": 3,
-		"speed": 100,
+		"speed": 150,
 		"power": 300,
 	}]
 }, {

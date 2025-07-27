@@ -1,6 +1,6 @@
 class_name AiBehaviorGoalie
 extends AIBehavior
-const PROXIMITY_CONCERN = 10 #临近担忧间距
+const PROXIMITY_CONCERN = 10 
 
 func perform_ai_movement() -> void:
 	var total_steering_force = get_goalie_steering_force()

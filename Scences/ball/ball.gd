@@ -34,10 +34,6 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	ball_sprite.position = Vector2.UP * height
 	raycast.rotation = velocity.angle()
-	if self.position.x > 850:
-		self.position = Vector2(802, 174)
-	elif self.position.x < 0:
-		self.position = Vector2(48, 174)
 
 func switch_state(state: Ball.State, data: BallStateData = BallStateData.new()) -> void:
 	if current_state != null:
